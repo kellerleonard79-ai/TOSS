@@ -18,16 +18,21 @@
   <!-- ===== Navbar ===== -->
   <header class="site-header">
     <nav class="container nav" aria-label="Main">
-      <a class="wordmark" href="index.html">TOSS <span>inc.</span></a>
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
-        <span></span><span></span>
-      </button>
-      <div class="nav__group">
-        <ul class="nav__links" id="nav-links">
-          <li><a class="link" href="index.html">Home</a></li>
-          <li><a class="link" href="about.html" aria-current="page">About</a></li>
-        </ul>
+      <a class="nav__brand" href="index.html" aria-label="TOSS Inc. home">
+        <img class="nav__logo" src="1.png" alt="TOSS Inc. logo">
+      </a>
+
+      <ul class="nav__links" id="nav-links">
+        <li><a class="link" href="index.html">Home</a></li>
+        <li><a class="link" href="about.html" aria-current="page">About</a></li>
+        <li><a class="link" href="#">Benefits</a></li>
+      </ul>
+
+      <div class="nav__end">
         <a class="btn btn--primary btn--sm" href="index.html#donate">Donate</a>
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
       </div>
     </nav>
   </header>

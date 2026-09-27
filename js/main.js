@@ -102,12 +102,18 @@
     // just the shorter window the video is actually stuck for), so the
     // beads keep settling all the way to the bottom of the about section
     // instead of freezing on the last frame partway through.
+    // Reach the final frame before the mission column finishes scrolling by
+    // (the beads should have settled well before the reader hits the bottom),
+    // so scale progress up before mapping it to a frame.
+    const SCRUB_SPEED = 1.4;
+
     function updateFrame() {
       ticking = false;
       const scrollable = heroLeft.offsetHeight;
-      const progress = scrollable > 0
+      const rawProgress = scrollable > 0
         ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / scrollable))
         : 0;
+      const progress = Math.min(1, rawProgress * SCRUB_SPEED);
       const index = Math.min(FRAME_COUNT - 1, Math.round(progress * (FRAME_COUNT - 1)));
       if (index !== currentFrame) {
         currentFrame = index;

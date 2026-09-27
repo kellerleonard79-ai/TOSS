@@ -61,6 +61,10 @@ body {
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
+  /* The hero video intentionally bleeds to the viewport edge using 100vw
+     math, which can overshoot by the scrollbar's width; clip that sliver
+     instead of showing a horizontal scrollbar. */
+  overflow-x: hidden;
   background: var(--white);
   color: var(--ink);
   font-family: var(--font-body);
@@ -267,20 +271,31 @@ ul {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--duration) var(--ease);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  backdrop-filter: none;
+  transition: background var(--duration) var(--ease),
+    backdrop-filter var(--duration) var(--ease);
 }
 
-.site-header.is-scrolled {
-  border-bottom-color: var(--line);
+.site-header:hover,
+.site-header:focus-within {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  backdrop-filter: blur(8px);
 }
 
 .nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   height: var(--header-height);
 }
@@ -303,17 +318,32 @@ ul {
   color: var(--green);
 }
 
-.nav__group {
-  display: flex;
+.nav__brand {
+  display: inline-flex;
   align-items: center;
-  gap: 40px;
+  justify-self: start;
 }
 
+.nav__logo {
+  height: 48px;
+  width: auto;
+}
+
+/* Sits in the grid's middle column, so it's centered in the navbar
+   regardless of how wide the logo or the end group are. */
 .nav__links {
   display: flex;
+  justify-content: center;
   gap: 36px;
   font-size: 15px;
   font-weight: 500;
+}
+
+.nav__end {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-self: end;
 }
 
 .nav__toggle {
@@ -355,18 +385,28 @@ ul {
 }
 
 @media (max-width: 767px) {
-  .nav__toggle {
-    display: block;
+  .nav {
+    grid-template-columns: auto 1fr auto;
   }
 
-  .nav__group {
-    gap: 0;
+  .nav__brand {
+    grid-column: 1;
+  }
+
+  .nav__end {
+    grid-column: 3;
+    gap: 8px;
+  }
+
+  .nav__toggle {
+    display: block;
   }
 
   .nav__links {
     position: fixed;
     inset: var(--header-height) 0 0 0;
     flex-direction: column;
+    justify-content: flex-start;
     gap: 8px;
     padding: 32px var(--gutter);
     background: var(--white);
@@ -419,14 +459,35 @@ ul {
   padding-top: clamp(16px, 3vw, 40px);
 }
 
+.hero-scrub__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(4px, 1vw, 12px);
+}
+
 .hero-scrub__logo {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .hero-scrub__logo img {
   width: 100%;
-  max-width: 340px;
+  max-width: 460px;
+}
+
+.hero-scrub__slogan {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  text-align: left;
+  color: var(--purple-deep);
+  max-width: 36ch;
+}
+
+.hero-scrub__slogan-highlight {
+  color: var(--green);
 }
 
 /* The right column's grid cell stretches to match the left column's
@@ -434,10 +495,14 @@ ul {
    is released once the left column's content runs out. */
 .hero-scrub__right {
   position: sticky;
-  top: var(--header-height);
+  top: 0;
   align-self: start;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-top: calc(-1 * var(--header-height));
+  /* Break out of the centered container so the video hugs the true
+     right edge of the viewport, not just the grid column's edge. */
+  margin-right: calc(-1 * (var(--gutter) + max(0px, (100vw - (var(--container) + var(--gutter) * 2)) / 2)));
 }
 
 .hero__canvas {
@@ -458,6 +523,8 @@ ul {
     position: static;
     order: -1;
     margin-bottom: 8px;
+    margin-right: 0;
+    justify-content: center;
   }
 
   .hero__canvas {
