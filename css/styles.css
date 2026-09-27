@@ -507,7 +507,7 @@ ul {
 
 .hero__canvas {
   width: 100%;
-  max-width: 360px;
+  max-width: 45vw;
   height: auto;
   aspect-ratio: 480 / 854;
   border-radius: var(--radius);
