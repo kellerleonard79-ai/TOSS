@@ -69,4 +69,59 @@
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
   });
+
+  // ---- Hero: scroll-scrubbed bead video ----------------------------------
+  const hero = document.getElementById("hero");
+  const canvas = document.getElementById("hero-canvas");
+  const heroLeft = document.querySelector(".hero-scrub__left");
+  const heroRight = document.querySelector(".hero-scrub__right");
+
+  if (hero && canvas && heroLeft && heroRight) {
+    const FRAME_COUNT = 80;
+    const framePath = (i) => `images/frames/frame_${String(i).padStart(3, "0")}.jpg`;
+
+    const ctx = canvas.getContext("2d");
+    const frames = [];
+    let currentFrame = 0;
+    let ticking = false;
+
+    function draw(index) {
+      const img = frames[index];
+      if (!img || !img.complete || !img.naturalWidth) return;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+
+    for (let i = 0; i < FRAME_COUNT; i++) {
+      const img = new Image();
+      img.src = framePath(i + 1);
+      if (i === 0) img.onload = () => draw(0);
+      frames.push(img);
+    }
+
+    // Spread the frames across the entire mission column's height (not
+    // just the shorter window the video is actually stuck for), so the
+    // beads keep settling all the way to the bottom of the about section
+    // instead of freezing on the last frame partway through.
+    function updateFrame() {
+      ticking = false;
+      const scrollable = heroLeft.offsetHeight;
+      const progress = scrollable > 0
+        ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / scrollable))
+        : 0;
+      const index = Math.min(FRAME_COUNT - 1, Math.round(progress * (FRAME_COUNT - 1)));
+      if (index !== currentFrame) {
+        currentFrame = index;
+        draw(index);
+      }
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateFrame);
+      }
+    }, { passive: true });
+
+    window.addEventListener("resize", () => draw(currentFrame));
+  }
 })();

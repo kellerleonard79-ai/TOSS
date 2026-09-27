@@ -400,85 +400,68 @@ ul {
 }
 
 /* ==========================================================================
-   Bead-strand divider
-   ========================================================================== */
-.bead-divider {
-  display: block;
-  width: 100%;
-  height: 34px;
-}
-
-@media (max-width: 767px) {
-  .bead-divider {
-    height: 24px;
-  }
-}
-
-/* ==========================================================================
    Home: hero
    ========================================================================== */
-.hero {
-  padding: clamp(56px, 9vw, 96px) 0 clamp(48px, 7vw, 72px);
+.hero-scrub {
+  padding: 0 0 clamp(64px, 10vw, 120px);
 }
 
-.hero__grid {
+.hero-scrub__grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  align-items: center;
   gap: clamp(32px, 5vw, 64px);
 }
 
-.hero__art {
+.hero-scrub__left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 8vw, 96px);
+  padding-top: clamp(16px, 3vw, 40px);
+}
+
+.hero-scrub__logo {
   display: flex;
   justify-content: center;
 }
 
-.hero__art img {
+.hero-scrub__logo img {
   width: 100%;
-  max-width: 420px;
+  max-width: 340px;
 }
 
-.hero__copy .display {
-  margin-bottom: 24px;
-}
-
-.hero__copy .lead {
-  margin-bottom: 36px;
-}
-
-.hero__actions {
+/* The right column's grid cell stretches to match the left column's
+   (taller, text-driven) height; the canvas sticks inside that cell and
+   is released once the left column's content runs out. */
+.hero-scrub__right {
+  position: sticky;
+  top: var(--header-height);
+  align-self: start;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 20px;
+  justify-content: center;
 }
 
-.hero__location {
-  font-size: 14px;
-  color: var(--ink-soft);
+.hero__canvas {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  aspect-ratio: 480 / 854;
+  border-radius: var(--radius);
 }
 
 @media (max-width: 900px) {
-  .hero__grid {
+  .hero-scrub__grid {
     grid-template-columns: 1fr;
     text-align: center;
   }
 
-  .hero__copy .lead {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero__actions {
-    justify-content: center;
-  }
-
-  .hero__art {
+  .hero-scrub__right {
+    position: static;
     order: -1;
+    margin-bottom: 8px;
   }
 
-  .hero__art img {
-    max-width: 280px;
+  .hero__canvas {
+    max-width: 260px;
   }
 }
 
