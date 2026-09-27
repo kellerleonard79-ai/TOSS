@@ -1,4 +1,27 @@
 (function () {
+  // ---- Donation progress -------------------------------------------------
+  // Update these two numbers as donations come in. Everything else
+  // (bar width, percentage, dollar labels) recalculates from them.
+  const CAMPAIGN = {
+    raised: 2250,
+    goal: 3000,
+  };
+
+  const fill = document.querySelector("[data-progress-fill]");
+  if (fill) {
+    const percent = Math.max(0, Math.min(100, Math.round((CAMPAIGN.raised / CAMPAIGN.goal) * 100)));
+    const money = (n) => "$" + n.toLocaleString("en-US");
+
+    fill.style.setProperty("--progress", percent + "%");
+
+    const raisedEl = document.querySelector("[data-raised-text]");
+    const goalEl = document.querySelector("[data-goal-text]");
+    const percentEl = document.querySelector("[data-percent-text]");
+    if (raisedEl) raisedEl.textContent = money(CAMPAIGN.raised);
+    if (goalEl) goalEl.textContent = money(CAMPAIGN.goal);
+    if (percentEl) percentEl.textContent = percent + "%";
+  }
+
   const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".nav__toggle");
   const links = document.querySelector(".nav__links");

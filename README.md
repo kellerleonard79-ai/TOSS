@@ -1,22 +1,38 @@
-# TEMPLATE — Website Template
+# TOSS Inc. — website
 
-A minimal, black and white website template: plain HTML, CSS, and a little vanilla JS. No build step. Open `index.html` in a browser and it works.
+Plain HTML, CSS, and a little vanilla JS. No build step. Open `index.html` in a browser and it works.
 
 ## Structure
 
 ```
-index.html       Home page
-about.html       About page
-css/styles.css   All styles (design tokens at the top)
-js/main.js       Mobile menu, header scroll border, footer year
+index.html               Home page — hero, mission, donate + progress
+about.html                About page — story, LSU partnership, founders
+css/styles.css            All styles (design tokens at the top)
+js/main.js                Mobile menu, header scroll border, footer year, donation progress
+1.png                      TOSS Inc. logo (used in the hero)
+images/mardi-gras/         Pensacola Mardi Gras photos (see credits below)
 ```
 
-## Customizing
+## Updating the donation progress bar
 
-- **Brand name:** search for `TEMPLATE` in both HTML files and replace it.
-- **Fonts:** Space Grotesk (headings) and Inter (body) load from Google Fonts in each page's `<head>`. To swap them, change that link and the `--font-heading` / `--font-body` tokens in `css/styles.css`.
-- **Colors and spacing:** edit the tokens in `:root` at the top of `css/styles.css`.
-- **Navbar and footer:** these are duplicated in each HTML file. Keep them in sync when editing, and move `aria-current="page"` to the current page's nav link on any new page.
+Open `js/main.js` and edit the two numbers at the top of the file:
+
+```js
+const CAMPAIGN = {
+  raised: 2250,
+  goal: 3000,
+};
+```
+
+The bar width, percentage, and dollar labels on the home page all recalculate from these automatically — nothing else needs to change.
+
+## Colors
+
+Brand colors were pulled directly from the TOSS logo artwork (`1.png` / the pptx deck) and live as tokens at the top of `css/styles.css`: white as the base, a pastel mint green and pastel gold as light accents, and a richer purple (matching the wordmark) for buttons, links, and headings.
+
+## Photo credits
+
+The Mardi Gras photos in `images/mardi-gras/` are by Happy Mermaid, sourced from [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Mardi_Gras_2010_in_Pensacola,_Florida) and licensed CC BY 2.0. Attribution is included in the photo captions on the About page — keep it if the photos stay, or swap in TOSS Inc.'s own event photos when available.
 
 ## Adding a page
 

@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEMPLATE</title>
-  <meta name="description" content="A minimal, premium website template in black and white.">
+  <title>TOSS Inc. — Throwables Offering Sustainable Solutions</title>
+  <meta name="description" content="TOSS Inc. is a Pensacola, Florida nonprofit replacing single-use plastic Mardi Gras beads with biodegradable throws, in partnership with LSU's PlantMe Beads program.">
+  <link rel="icon" type="image/png" href="2.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,560;9..144,650&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -17,32 +18,106 @@
   <!-- ===== Navbar ===== -->
   <header class="site-header">
     <nav class="container nav" aria-label="Main">
-      <a class="wordmark" href="index.html">TEMPLATE</a>
+      <a class="wordmark" href="index.html">TOSS <span>inc.</span></a>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
         <span></span><span></span>
       </button>
-      <ul class="nav__links" id="nav-links">
-        <li><a class="link" href="index.html" aria-current="page">Home</a></li>
-        <li><a class="link" href="about.html">About</a></li>
-      </ul>
+      <div class="nav__group">
+        <ul class="nav__links" id="nav-links">
+          <li><a class="link" href="index.html" aria-current="page">Home</a></li>
+          <li><a class="link" href="about.html">About</a></li>
+        </ul>
+        <a class="btn btn--primary btn--sm" href="#donate">Donate</a>
+      </div>
     </nav>
   </header>
 
   <main id="main">
     <!-- Hero -->
     <section class="hero">
-      <div class="container">
-        <span class="eyebrow">Est. 2026</span>
-        <h1 class="display">Built with intention.</h1>
-        <p class="lead">A short introduction to who you are and what you do. One or two sentences that make the value clear at a glance.</p>
-        <a class="btn btn--primary" href="about.html">Learn more <span class="arrow" aria-hidden="true">→</span></a>
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <h1 class="display">Mardi Gras beads that don't outlive the parade.</h1>
+          <p class="lead">TOSS Inc. is a Pensacola, Florida nonprofit trading single-use plastic throws for biodegradable ones — so Gulf Coast krewes can keep the tradition and lose the landfill.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#donate">Donate today</a>
+            <span class="hero__location">Est. Pensacola, Florida</span>
+          </div>
+        </div>
+        <div class="hero__art">
+          <img src="1.png" alt="TOSS Inc. logo: a chain of pastel Mardi Gras beads shaped like smiling turtles, reading &quot;Est. Pensacola&quot;" width="420" height="420">
+        </div>
       </div>
     </section>
 
-    <!-- Statement -->
+    <svg class="bead-divider" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,20 C100,4 200,36 300,20 C400,4 500,36 600,20 C700,4 800,36 900,20 C1000,4 1100,36 1200,20" fill="none" stroke="#e7e1de" stroke-width="2"/>
+      <circle cx="50" cy="12" r="7" fill="#6f3ba6"/>
+      <circle cx="150" cy="20" r="7" fill="#3e7a3f"/>
+      <circle cx="250" cy="28" r="7" fill="#c08f2e"/>
+      <circle cx="350" cy="20" r="7" fill="#6f3ba6"/>
+      <circle cx="450" cy="12" r="7" fill="#3e7a3f"/>
+      <circle cx="550" cy="20" r="7" fill="#c08f2e"/>
+      <circle cx="650" cy="28" r="7" fill="#6f3ba6"/>
+      <circle cx="750" cy="20" r="7" fill="#3e7a3f"/>
+      <circle cx="850" cy="12" r="7" fill="#c08f2e"/>
+      <circle cx="950" cy="20" r="7" fill="#6f3ba6"/>
+      <circle cx="1050" cy="28" r="7" fill="#3e7a3f"/>
+      <circle cx="1150" cy="20" r="7" fill="#c08f2e"/>
+    </svg>
+
+    <!-- What we do -->
     <section class="section">
       <div class="container">
-        <p class="statement h2">Less, but better. <span class="muted">Every detail considered, nothing left to chance.</span></p>
+        <div class="mission__head">
+          <h2 class="h2">Every parade season, the beads win — and lose.</h2>
+        </div>
+        <div class="mission__body">
+          <p>Each Mardi Gras season, krewes throw massive quantities of single-use plastic beads from floats — and much of it ends up in landfills and local waterways instead of around someone's neck. TOSS Inc. exists to close that gap.</p>
+          <p>We've partnered with <strong>Louisiana State University's PlantMe Beads program</strong> to supply biodegradable throw alternatives to krewes and parade organizations across the Gulf Coast, free of charge — making the sustainable choice as easy to grab as the plastic one. TOSS Inc. runs entirely on donations, because we think Gulf Coast tradition and environmental responsibility can share a float.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Donate + progress -->
+    <section class="section section--tint" id="donate">
+      <div class="container">
+        <div class="mission__head">
+          <h2 class="h2">Fund the switch to biodegradable beads</h2>
+          <p class="lead">TOSS Inc. is entirely donor-funded — every gift buys biodegradable beads that go straight to krewes and parade organizations.</p>
+        </div>
+
+        <div class="donate-grid">
+          <div class="card donate-card">
+            <h3 class="h3">Donate to TOSS Inc.</h3>
+            <p>Your gift funds biodegradable beads for krewes across the Gulf Coast — no plastic, no landfill, no guilt with your throw.</p>
+            <div class="donate-card__actions">
+              <a class="btn btn--on-dark" href="mailto:TOSSpensacola@gmail.com?subject=Donation%20to%20TOSS%20Inc.">Email us to donate</a>
+            </div>
+            <div class="contact-list">
+              <a href="mailto:TOSSpensacola@gmail.com">TOSSpensacola@gmail.com</a>
+              <a href="tel:+18502937426">Text us: +1 (850) 293-7426</a>
+            </div>
+          </div>
+
+          <div class="card progress-card">
+            <h3 class="h3">Our goal: <span data-goal-text>$3,000</span></h3>
+            <p class="progress-amount"><span data-raised-text>$2,250</span> raised</p>
+            <p class="progress-goal"><span data-percent-text>75%</span> of the way to a fully-funded parade season</p>
+
+            <div class="progress-bar">
+              <div class="progress-track">
+                <div class="progress-fill" data-progress-fill style="--progress: 75%"></div>
+              </div>
+              <div class="progress-ticks">
+                <span>$0</span>
+                <span>$1,000</span>
+                <span>$2,000</span>
+                <span>$3,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -50,12 +125,30 @@
   <!-- ===== Footer ===== -->
   <footer class="site-footer">
     <div class="container footer__inner">
-      <a class="wordmark" href="index.html">TEMPLATE</a>
-      <ul class="footer__links">
-        <li><a class="link" href="index.html">Home</a></li>
-        <li><a class="link" href="about.html">About</a></li>
-      </ul>
-      <p class="footer__copy">© <span data-year>2026</span> TEMPLATE</p>
+      <div>
+        <a class="wordmark" href="index.html">TOSS <span>inc.</span></a>
+        <p class="footer__tagline">A Pensacola, Florida nonprofit trading plastic Mardi Gras beads for biodegradable ones, in partnership with LSU's PlantMe Beads program.</p>
+      </div>
+      <div>
+        <p class="footer__col-title">Explore</p>
+        <ul class="footer__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#donate">Donate</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Contact</p>
+        <ul class="footer__links">
+          <li><a href="mailto:TOSSpensacola@gmail.com">TOSSpensacola@gmail.com</a></li>
+          <li><a href="tel:+18502937426">+1 (850) 293-7426</a></li>
+          <li>Pensacola, Florida</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span data-year>2026</span> TOSS Inc. — a Florida nonprofit corporation</p>
+      <p>Throwables Offering Sustainable Solutions</p>
     </div>
   </footer>
 

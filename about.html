@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — TEMPLATE</title>
-  <meta name="description" content="Who we are and what we believe.">
+  <title>About — TOSS Inc.</title>
+  <meta name="description" content="TOSS Inc. is a Pensacola, Florida nonprofit partnering with LSU's PlantMe Beads program to bring biodegradable Mardi Gras throws to Gulf Coast krewes. Meet the founders.">
+  <link rel="icon" type="image/png" href="2.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,560;9..144,650&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -17,14 +18,17 @@
   <!-- ===== Navbar ===== -->
   <header class="site-header">
     <nav class="container nav" aria-label="Main">
-      <a class="wordmark" href="index.html">TEMPLATE</a>
+      <a class="wordmark" href="index.html">TOSS <span>inc.</span></a>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
         <span></span><span></span>
       </button>
-      <ul class="nav__links" id="nav-links">
-        <li><a class="link" href="index.html">Home</a></li>
-        <li><a class="link" href="about.html" aria-current="page">About</a></li>
-      </ul>
+      <div class="nav__group">
+        <ul class="nav__links" id="nav-links">
+          <li><a class="link" href="index.html">Home</a></li>
+          <li><a class="link" href="about.html" aria-current="page">About</a></li>
+        </ul>
+        <a class="btn btn--primary btn--sm" href="index.html#donate">Donate</a>
+      </div>
     </nav>
   </header>
 
@@ -32,27 +36,91 @@
     <!-- Page header -->
     <section class="page-header">
       <div class="container">
-        <span class="eyebrow">About</span>
-        <h1 class="display">A small team with a clear point of view.</h1>
+        <h1 class="display">Gulf Coast tradition, minus the plastic.</h1>
+        <p class="lead">TOSS Inc. is a Pensacola, Florida nonprofit proving that a great parade and a clean coastline aren't mutually exclusive.</p>
       </div>
     </section>
 
-    <!-- Intro -->
+    <!-- Story -->
     <section class="section">
       <div class="container split">
         <h2 class="h2">Our story</h2>
         <div class="split__body">
-          <p>TEMPLATE began with a simple idea: that careful work, done by people who care, still stands out. Everything we make starts from that belief.</p>
-          <p>Replace this paragraph with your own background. Where you started, what you've built since, and who you build it for. Two or three short paragraphs is plenty.</p>
-          <p>Keep the tone direct and specific. Good copy here does more for the page than any design detail.</p>
+          <p>TOSS Inc. — Throwables Offering Sustainable Solutions — is a Florida nonprofit corporation founded in Pensacola to reduce the environmental impact of traditional Mardi Gras celebrations. Every parade season, krewes distribute massive quantities of single-use plastic beads and throws, and much of it ends up in landfills and local waterways.</p>
+          <p>We think the fix shouldn't cost krewes anything, so TOSS Inc. is funded entirely through charitable donations. Every dollar goes toward getting biodegradable throws into the hands of the people already running the parade.</p>
+          <div class="program-note">
+            <p><strong>The LSU partnership.</strong> We work with Louisiana State University's PlantMe Beads program, which develops biodegradable throw alternatives.</p>
+            <p>TOSS Inc. supplies these beads to krewes and parade organizations free of charge — making the sustainable choice as easy to grab as the plastic one it replaces.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Image -->
+    <!-- Photo -->
+    <section class="section section--tint">
+      <div class="container">
+        <div class="photo-banner">
+          <img src="images/mardi-gras/pensacola-mardi-gras-krewe.jpg" alt="A Mardi Gras krewe float and cheering crowd on a downtown Pensacola street, decorated in purple and gold" loading="lazy">
+        </div>
+        <p class="photo-caption">Mardi Gras in downtown Pensacola — the tradition TOSS Inc. is working to keep plastic-free. Photo by Happy Mermaid, via <a href="https://commons.wikimedia.org/wiki/Category:Mardi_Gras_2010_in_Pensacola,_Florida" target="_blank" rel="noopener">Wikimedia Commons</a>, licensed CC BY 2.0.</p>
+      </div>
+    </section>
+
+    <!-- Founders -->
     <section class="section">
       <div class="container">
-        <div class="image-placeholder" role="img" aria-label="Image placeholder">Image — 16:9</div>
+        <div class="mission__head">
+          <h2 class="h2">Founded by two people who love a good parade</h2>
+        </div>
+        <div class="founders-grid">
+          <div class="founder-card">
+            <div class="founder-card__top">
+              <div class="avatar" aria-hidden="true">JM</div>
+              <div>
+                <p class="h3 founder-card__name">Jones Moore</p>
+                <p class="founder-card__role">Co-Founder</p>
+              </div>
+            </div>
+            <p class="bio">Jones co-founded TOSS Inc. to keep Pensacola's Mardi Gras tradition alive without leaving a mountain of plastic behind after every parade.</p>
+          </div>
+          <div class="founder-card">
+            <div class="founder-card__top">
+              <div class="avatar" aria-hidden="true">EM</div>
+              <div>
+                <p class="h3 founder-card__name">Elana Millhouse-Smith</p>
+                <p class="founder-card__role">Co-Founder</p>
+              </div>
+            </div>
+            <p class="bio">Elana co-founded TOSS Inc. to bring LSU's biodegradable PlantMe Beads to krewes across the Gulf Coast, free of charge.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo -->
+    <section class="section section--tint">
+      <div class="container">
+        <div class="photo-banner">
+          <img src="images/mardi-gras/pensacola-mardi-gras-beads.jpg" alt="Mardi Gras throws changing hands in a crowd on a downtown Pensacola parade route" loading="lazy">
+        </div>
+        <p class="photo-caption">Beads changing hands on a Pensacola parade route. Photo by Happy Mermaid, via <a href="https://commons.wikimedia.org/wiki/Category:Mardi_Gras_2010_in_Pensacola,_Florida" target="_blank" rel="noopener">Wikimedia Commons</a>, licensed CC BY 2.0.</p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-band">
+          <div>
+            <h2 class="h3">Questions, donations, or krewe partnerships</h2>
+            <p class="muted">Reach out directly — we're a small team and we read every message.</p>
+          </div>
+          <div class="contact-band__items">
+            <a href="mailto:TOSSpensacola@gmail.com">TOSSpensacola@gmail.com</a>
+            <a href="tel:+18502937426">Text us: +1 (850) 293-7426</a>
+            <span class="muted">Pensacola, Florida</span>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -60,12 +128,30 @@
   <!-- ===== Footer ===== -->
   <footer class="site-footer">
     <div class="container footer__inner">
-      <a class="wordmark" href="index.html">TEMPLATE</a>
-      <ul class="footer__links">
-        <li><a class="link" href="index.html">Home</a></li>
-        <li><a class="link" href="about.html">About</a></li>
-      </ul>
-      <p class="footer__copy">© <span data-year>2026</span> TEMPLATE</p>
+      <div>
+        <a class="wordmark" href="index.html">TOSS <span>inc.</span></a>
+        <p class="footer__tagline">A Pensacola, Florida nonprofit trading plastic Mardi Gras beads for biodegradable ones, in partnership with LSU's PlantMe Beads program.</p>
+      </div>
+      <div>
+        <p class="footer__col-title">Explore</p>
+        <ul class="footer__links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="index.html#donate">Donate</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Contact</p>
+        <ul class="footer__links">
+          <li><a href="mailto:TOSSpensacola@gmail.com">TOSSpensacola@gmail.com</a></li>
+          <li><a href="tel:+18502937426">+1 (850) 293-7426</a></li>
+          <li>Pensacola, Florida</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span data-year>2026</span> TOSS Inc. — a Florida nonprofit corporation</p>
+      <p>Throwables Offering Sustainable Solutions</p>
     </div>
   </footer>
 
