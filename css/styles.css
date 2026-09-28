@@ -12,7 +12,6 @@
 
   /* Brand accents, sampled from the TOSS logo artwork */
   --purple: #6f3ba6;
-  --purple-deep: #4b2470;
   --purple-tint: #f1e9fa;
   --green: #1e8449;         /* accessible text/icon green */
   --green-pastel: #c7e4bd;  /* pastel fill green, matches the mascot's shell */
@@ -235,8 +234,8 @@ ul {
 }
 
 .btn--primary:hover {
-  background: var(--purple-deep);
-  border-color: var(--purple-deep);
+  background: var(--purple);
+  border-color: var(--purple);
 }
 
 .btn--ghost {
@@ -450,6 +449,8 @@ ul {
    sticky video's bottom edge by a small bit, instead of leaving a gap. */
 @media (min-width: 901px) {
   .hero-scrub + .section {
+    position: relative;
+    z-index: 1;
     margin-top: -20px;
   }
 
@@ -472,6 +473,17 @@ ul {
   flex-direction: column;
   gap: clamp(48px, 8vw, 96px);
   padding-top: clamp(16px, 3vw, 40px);
+}
+
+/* Desktop only: the statement alone fills the first viewport, so the page
+   reads as a pure hero until the visitor scrolls — the mission heading and
+   copy that follow in the flex column are pushed below the fold. */
+@media (min-width: 901px) {
+  .hero-scrub__intro {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - var(--header-height));
+  }
 }
 
 .hero-scrub__statement {
@@ -847,7 +859,7 @@ ul {
    ========================================================================== */
 .site-footer {
   padding: 56px 0 40px;
-  background: var(--ink);
+  background: var(--purple);
   color: var(--white);
 }
 
