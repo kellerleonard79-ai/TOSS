@@ -477,8 +477,15 @@ ul {
 
 /* Desktop only: the statement alone fills the first viewport, so the page
    reads as a pure hero until the visitor scrolls — the mission heading and
-   copy that follow in the flex column are pushed below the fold. */
+   copy that follow in the flex column are pushed below the fold. The
+   column's own padding-top is zeroed here (it's only needed to space the
+   statement down on mobile, where this rule doesn't apply) so the intro
+   block's centering isn't thrown off by an extra offset on top of it. */
 @media (min-width: 901px) {
+  .hero-scrub__left {
+    padding-top: 0;
+  }
+
   .hero-scrub__intro {
     display: flex;
     align-items: center;
@@ -489,11 +496,11 @@ ul {
 .hero-scrub__statement {
   font-family: "Besley", Georgia, serif;
   font-weight: 800;
-  font-size: clamp(2.25rem, 4.6vw, 3.75rem);
-  line-height: 1.1;
-  letter-spacing: -0.005em;
+  font-size: clamp(2.5rem, 6.5vw, 5.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
   color: var(--purple);
-  max-width: 20ch;
+  max-width: 16ch;
 }
 
 .hero-scrub__statement-accent {
