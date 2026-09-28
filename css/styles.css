@@ -875,8 +875,9 @@ ul {
    ========================================================================== */
 .site-footer {
   padding: 56px 0 40px;
-  background: var(--purple);
-  color: var(--white);
+  background: var(--white);
+  color: var(--ink);
+  border-top: 1px solid var(--purple-tint);
 }
 
 .footer__inner {
@@ -888,7 +889,7 @@ ul {
 .footer__col-title {
   font-size: 13px;
   font-weight: 600;
-  color: var(--gold-pastel);
+  color: var(--purple);
   margin-bottom: 14px;
 }
 
@@ -899,30 +900,30 @@ ul {
 }
 
 .footer__links a {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--ink-soft);
 }
 
 .footer__links a:hover {
-  color: var(--white);
+  color: var(--ink);
 }
 
 .footer__tagline {
   margin-top: 14px;
   max-width: 32ch;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--ink-soft);
   font-size: 14px;
 }
 
 .footer__bottom {
   margin-top: 40px;
   padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid var(--purple-tint);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--ink-soft);
 }
 
 @media (max-width: 767px) {
