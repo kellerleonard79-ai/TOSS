@@ -14,7 +14,7 @@
   --purple: #6f3ba6;
   --purple-deep: #4b2470;
   --purple-tint: #f1e9fa;
-  --green: #3e7a3f;         /* accessible text/icon green */
+  --green: #1e8449;         /* accessible text/icon green */
   --green-pastel: #c7e4bd;  /* pastel fill green, matches the mascot's shell */
   --green-pastel-deep: #9dcd91;
   --gold: #c08f2e;          /* accessible text/icon gold */
@@ -475,13 +475,17 @@ ul {
 }
 
 .hero-scrub__statement {
-  font-family: var(--font-heading);
-  font-weight: 650;
-  font-size: clamp(2.5rem, 5.4vw, 4.25rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--purple-deep);
-  max-width: 16ch;
+  font-family: "Besley", Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 4.6vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  color: var(--purple);
+  max-width: 20ch;
+}
+
+.hero-scrub__statement-accent {
+  color: var(--green);
 }
 
 /* The right column's grid cell stretches to match the left column's
