@@ -102,10 +102,10 @@
     // just the shorter window the video is actually stuck for), so the
     // beads keep settling all the way to the bottom of the about section
     // instead of freezing on the last frame partway through.
-    // Reach the final frame before the mission column finishes scrolling by
-    // (the beads should have settled well before the reader hits the bottom),
-    // so scale progress up before mapping it to a frame.
-    const SCRUB_SPEED = 1.4;
+    // Reach the final frame right as the mission heading + copy have fully
+    // scrolled into view below the header, so the beads finish settling
+    // exactly when the reader can see the whole "about" block at once.
+    const SCRUB_SPEED = 2;
 
     function updateFrame() {
       ticking = false;

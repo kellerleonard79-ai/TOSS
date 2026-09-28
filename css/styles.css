@@ -443,7 +443,22 @@ ul {
    Home: hero
    ========================================================================== */
 .hero-scrub {
-  padding: 0 0 clamp(64px, 10vw, 120px);
+  padding: 0;
+}
+
+/* Desktop only: pull the next section up so its band overlaps the
+   sticky video's bottom edge by a small bit, instead of leaving a gap. */
+@media (min-width: 901px) {
+  .hero-scrub + .section {
+    margin-top: -20px;
+  }
+
+  /* Nudge the about copy up clear of that overlapping band. A transform
+     (not margin) is used so it doesn't change the column's flow height,
+     which would otherwise shift the sticky video's release point too. */
+  .mission__body {
+    transform: translateY(-40px);
+  }
 }
 
 .hero-scrub__grid {
@@ -459,35 +474,14 @@ ul {
   padding-top: clamp(16px, 3vw, 40px);
 }
 
-.hero-scrub__brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(4px, 1vw, 12px);
-}
-
-.hero-scrub__logo {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.hero-scrub__logo img {
-  width: 100%;
-  max-width: 460px;
-}
-
-.hero-scrub__slogan {
+.hero-scrub__statement {
   font-family: var(--font-heading);
-  font-style: italic;
-  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
-  text-align: left;
+  font-weight: 650;
+  font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   color: var(--purple-deep);
-  max-width: 36ch;
-}
-
-.hero-scrub__slogan-highlight {
-  color: var(--green);
+  max-width: 16ch;
 }
 
 /* The right column's grid cell stretches to match the left column's
@@ -510,10 +504,13 @@ ul {
   max-width: 45vw;
   height: auto;
   aspect-ratio: 480 / 854;
-  border-radius: var(--radius);
 }
 
 @media (max-width: 900px) {
+  .hero-scrub {
+    padding-bottom: clamp(64px, 10vw, 120px);
+  }
+
   .hero-scrub__grid {
     grid-template-columns: 1fr;
     text-align: center;
@@ -537,7 +534,7 @@ ul {
    ========================================================================== */
 .mission__head {
   max-width: 60ch;
-  margin-bottom: 40px;
+  margin-bottom: 12px;
 }
 
 .mission__body {
