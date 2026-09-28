@@ -464,7 +464,11 @@ ul {
 
 .hero-scrub__grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  /* minmax(0, …) lets each track shrink below its content's min-content
+     size (the statement's long words at this font size would otherwise
+     inflate the left track past its fr share, starving the right column
+     and breaking the canvas's edge-to-edge bleed math below). */
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: clamp(32px, 5vw, 64px);
 }
 
