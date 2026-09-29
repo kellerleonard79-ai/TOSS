@@ -324,26 +324,15 @@ ul {
   height: var(--header-height);
 }
 
-.wordmark {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 5px;
-  font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 650;
-  letter-spacing: -0.01em;
-  color: var(--purple);
-}
-
-.wordmark span {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--green);
-}
-
 .nav__brand {
+  display: inline-flex;
+  align-items: center;
   justify-self: start;
+}
+
+.nav__logo {
+  height: 48px;
+  width: auto;
 }
 
 /* Sits in the grid's middle column, so it's centered in the navbar
@@ -844,6 +833,16 @@ ul {
   color: var(--green);
 }
 
+.founder__link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--purple);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .founder__bio {
   max-width: 48ch;
   margin-top: 18px;
@@ -905,6 +904,15 @@ ul {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
   gap: 32px;
+}
+
+.footer__brand {
+  display: inline-block;
+}
+
+.footer__logo {
+  height: 112px;
+  width: auto;
 }
 
 .footer__col-title {
