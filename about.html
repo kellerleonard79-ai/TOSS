@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,560;9..144,650&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Besley:wght@700;800&family=Fraunces:opsz,wght@9..144,450;9..144,560;9..144,650&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -37,93 +37,53 @@
   </header>
 
   <main id="main">
-    <!-- Page header -->
-    <section class="page-header">
-      <div class="container">
-        <h1 class="display">Gulf Coast tradition, minus the plastic.</h1>
-        <p class="lead">TOSS Inc. is a Pensacola, Florida nonprofit proving that a great parade and a clean coastline aren't mutually exclusive.</p>
-      </div>
-    </section>
-
-    <!-- Story -->
-    <section class="section">
-      <div class="container split">
-        <h2 class="h2">Our story</h2>
-        <div class="split__body">
-          <p>TOSS Inc. — Throwables Offering Sustainable Solutions — is a Florida nonprofit corporation founded in Pensacola to reduce the environmental impact of traditional Mardi Gras celebrations. Every parade season, krewes distribute massive quantities of single-use plastic beads and throws, and much of it ends up in landfills and local waterways.</p>
-          <p>We think the fix shouldn't cost krewes anything, so TOSS Inc. is funded entirely through charitable donations. Every dollar goes toward getting biodegradable throws into the hands of the people already running the parade.</p>
-          <div class="program-note">
-            <p><strong>The LSU partnership.</strong> We work with Louisiana State University's PlantMe Beads program, which develops biodegradable throw alternatives.</p>
-            <p>TOSS Inc. supplies these beads to krewes and parade organizations free of charge — making the sustainable choice as easy to grab as the plastic one it replaces.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Photo -->
-    <section class="section section--tint">
-      <div class="container">
-        <div class="photo-banner">
-          <img src="images/mardi-gras/pensacola-mardi-gras-krewe.jpg" alt="A Mardi Gras krewe float and cheering crowd on a downtown Pensacola street, decorated in purple and gold" loading="lazy">
-        </div>
-        <p class="photo-caption">Mardi Gras in downtown Pensacola — the tradition TOSS Inc. is working to keep plastic-free. Photo by Happy Mermaid, via <a href="https://commons.wikimedia.org/wiki/Category:Mardi_Gras_2010_in_Pensacola,_Florida" target="_blank" rel="noopener">Wikimedia Commons</a>, licensed CC BY 2.0.</p>
-      </div>
-    </section>
-
     <!-- Founders -->
+    <section class="section about-founders">
+      <div class="container">
+        <h1 class="about-title">Our <span class="about-title__accent">Story</span></h1>
+        <div class="founders">
+          <article class="founder">
+            <!-- TODO: swap for <img class="founder__photo" src="images/founders/jones-moore.jpg" alt="Jones Moore"> once a photo is ready -->
+            <div class="founder__photo founder__photo--initials" aria-hidden="true">JM</div>
+            <h2 class="founder__name">Jones Moore</h2>
+            <p class="founder__role">Co-Founder</p>
+            <!-- TODO: replace with Jones's bio (3–5 sentences) -->
+            <p class="founder__bio">Bio coming soon. This space is for a few sentences about Jones: where they're from and what they do. It should also say why Mardi Gras matters to them and what led them to co-found TOSS Inc.</p>
+          </article>
+          <article class="founder">
+            <img class="founder__photo" src="images/founders/elana-millhouse-smith.jpg" alt="Elana Millhouse-Smith" width="380" height="380">
+            <h2 class="founder__name">Elana Millhouse-Smith</h2>
+            <p class="founder__role">Co-Founder</p>
+            <!-- TODO: replace with Elana's bio (3–5 sentences) -->
+            <p class="founder__bio">Bio coming soon. This space is for a few sentences about Elana: where she's from and what she does. It should also say why Mardi Gras matters to her and what led her to co-found TOSS Inc.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About TOSS -->
     <section class="section">
       <div class="container">
-        <div class="mission__head">
-          <h2 class="h2">Founded by two people who love a good parade</h2>
-        </div>
-        <div class="founders-grid">
-          <div class="founder-card">
-            <div class="founder-card__top">
-              <div class="avatar" aria-hidden="true">JM</div>
-              <div>
-                <p class="h3 founder-card__name">Jones Moore</p>
-                <p class="founder-card__role">Co-Founder</p>
-              </div>
-            </div>
-            <p class="bio">Jones co-founded TOSS Inc. to keep Pensacola's Mardi Gras tradition alive without leaving a mountain of plastic behind after every parade.</p>
+        <div class="mission-box about-story">
+          <div class="mission__head">
+            <h2 class="h2">About TOSS</h2>
           </div>
-          <div class="founder-card">
-            <div class="founder-card__top">
-              <div class="avatar" aria-hidden="true">EM</div>
-              <div>
-                <p class="h3 founder-card__name">Elana Millhouse-Smith</p>
-                <p class="founder-card__role">Co-Founder</p>
-              </div>
-            </div>
-            <p class="bio">Elana co-founded TOSS Inc. to bring LSU's biodegradable PlantMe Beads to krewes across the Gulf Coast, free of charge.</p>
+          <div class="mission__body">
+            <p>We love Mardi Gras, and catching beads is part of the magic. But after the parade rolls by, many of those plastic beads end up in landfills, storm drains, and our waterways, where they never break down. Around New Orleans alone, that adds up to 25 million pounds.</p>
+            <p>So that's why we founded <strong>TOSS Inc.</strong> (Throwables Offering Sustainable Solutions), a Pensacola nonprofit that keeps the fun and leaves out the plastic. We give krewes biodegradable beads for free, so the sustainable choice is as easy to grab as the plastic one.</p>
+            <p>All of our work is funded by donations from people who love this tradition as much as we do. Together, we're showing that Gulf Coast tradition and environmental responsibility can coexist, one parade at a time.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Photo -->
-    <section class="section section--tint">
+    <!-- Partner -->
+    <section class="section about-partner">
       <div class="container">
-        <div class="photo-banner">
-          <img src="images/mardi-gras/pensacola-mardi-gras-beads.jpg" alt="Mardi Gras throws changing hands in a crowd on a downtown Pensacola parade route" loading="lazy">
-        </div>
-        <p class="photo-caption">Beads changing hands on a Pensacola parade route. Photo by Happy Mermaid, via <a href="https://commons.wikimedia.org/wiki/Category:Mardi_Gras_2010_in_Pensacola,_Florida" target="_blank" rel="noopener">Wikimedia Commons</a>, licensed CC BY 2.0.</p>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="section">
-      <div class="container">
-        <div class="contact-band">
-          <div>
-            <h2 class="h3">Questions, donations, or krewe partnerships</h2>
-            <p class="muted">Reach out directly — we're a small team and we read every message.</p>
-          </div>
-          <div class="contact-band__items">
-            <a href="mailto:TOSSpensacola@gmail.com">TOSSpensacola@gmail.com</a>
-            <a href="tel:+18502937426">Text us: +1 (850) 293-7426</a>
-            <span class="muted">Pensacola, Florida</span>
-          </div>
+        <div class="donate">
+          <h2 class="h2">Our partner</h2>
+          <p class="lead">TOSS works with <strong>Louisiana State University's PlantMe Beads program</strong>, which develops biodegradable alternatives to traditional plastic Mardi Gras throws.</p>
+          <p class="lead">LSU supplies the beads, and TOSS uses donor funding to get them to krewes in Pensacola and across the Gulf Coast at no cost to the krewes. Together, we're making biodegradable beads as easy for krewes to get as plastic ones.</p>
         </div>
       </div>
     </section>

@@ -764,163 +764,106 @@ ul {
 /* ==========================================================================
    About page
    ========================================================================== */
-.page-header {
-  padding: clamp(64px, 9vw, 112px) 0 clamp(40px, 6vw, 64px);
+.about-title {
+  font-family: "Besley", Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--purple);
+  text-align: center;
 }
 
-.page-header .display {
-  max-width: 16ch;
+.about-title__accent {
+  color: var(--green);
 }
 
-.page-header .lead {
-  margin-top: 20px;
+/* The next section's own top padding supplies the gap below. */
+.about-founders {
+  padding-top: clamp(40px, 6vw, 72px);
+  padding-bottom: 0;
 }
 
-.split {
+.founders {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 64px;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  margin-top: clamp(40px, 6vw, 64px);
 }
 
-.split__body {
-  display: grid;
-  gap: 22px;
-  font-size: 18px;
-}
-
-.split__body p {
-  color: var(--ink-soft);
-}
-
-.split__body p:first-child {
-  color: var(--ink);
-}
-
-.program-note {
-  margin-top: 28px;
-  padding: 24px 26px;
-  background: var(--purple-tint);
-  border-radius: var(--radius-sm);
-  border-left: 4px solid var(--purple);
-}
-
-.program-note p {
-  color: var(--ink);
-  font-size: 16px;
-}
-
-.program-note p + p {
-  margin-top: 10px;
-}
-
-.photo-banner {
+.founder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(28px, 4vw, 48px);
+  background: var(--lavender);
   border-radius: var(--radius);
-  overflow: hidden;
+  text-align: center;
 }
 
-.photo-banner img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
+.founder__photo {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 24px;
+  border: 4px solid var(--white);
+  border-radius: 50%;
   object-fit: cover;
 }
 
-.photo-caption {
-  margin-top: 12px;
-  font-size: 13px;
-  color: var(--ink-soft);
-}
-
-.photo-caption a {
-  border-bottom: 1px solid currentColor;
-}
-
-/* Founders */
-.founders-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-}
-
-.founder-card {
-  padding: clamp(24px, 3vw, 32px);
-  background: var(--surface);
-  border-radius: var(--radius);
-}
-
-.founder-card__top {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-bottom: 18px;
-}
-
-.avatar {
-  flex-shrink: 0;
+.founder__photo--initials {
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple) 0%, var(--green) 100%);
+  background: var(--purple);
   color: var(--white);
-  font-family: var(--font-heading);
-  font-size: 22px;
+  font-family: "Besley", Georgia, serif;
+  font-size: 56px;
+  font-weight: 800;
+}
+
+.founder__name {
+  font-family: "Besley", Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+  color: var(--purple);
+}
+
+.founder__role {
+  margin-top: 6px;
+  font-size: 15px;
   font-weight: 600;
+  color: var(--green);
 }
 
-.founder-card__name {
-  margin-bottom: 2px;
+.founder__bio {
+  max-width: 48ch;
+  margin-top: 18px;
+  color: var(--purple);
 }
 
-.founder-card__role {
-  font-size: 14px;
-  color: var(--gold);
-  font-weight: 600;
+/* The About box and partner band swap the homepage's colors: pastel green
+   with green text for the story, lavender with purple text for the partner. */
+.about-story {
+  background: var(--green-pastel);
 }
 
-.founder-card p.bio {
-  color: var(--ink-soft);
-  font-size: 16px;
+.about-story .h2,
+.about-story .mission__body,
+.about-story .mission__body strong {
+  color: var(--green);
 }
 
-@media (max-width: 767px) {
-  .split {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .founders-grid {
-    grid-template-columns: 1fr;
-  }
+.about-partner {
+  background: var(--lavender);
 }
 
-/* ==========================================================================
-   Contact block (reused on home + about)
-   ========================================================================== */
-.contact-band {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 40px;
-  align-items: center;
-  padding: 40px;
-  background: var(--surface);
-  border-radius: var(--radius);
-}
-
-.contact-band__items {
-  display: grid;
-  gap: 12px;
-  font-size: 16px;
-}
-
-.contact-band__items a {
+.about-partner .h2,
+.about-partner .lead {
   color: var(--purple);
 }
 
 @media (max-width: 767px) {
-  .contact-band {
+  .founders {
     grid-template-columns: 1fr;
-    padding: 28px;
   }
 }
 
