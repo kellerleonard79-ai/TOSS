@@ -475,9 +475,12 @@ ul {
 @media (min-width: 901px) {
   .hero-scrub__left {
     padding-top: 0;
-    /* Matches the gap above the mission box, plus the 20px the next
+    /* The intro fills the space under the header, so the statement is
+       centered and the box starts below the fold, this far past it. */
+    gap: clamp(72px, 12vh, 128px);
+    /* Same spacing before the green section, plus the 20px the next
        section's band overlaps this one by. */
-    padding-bottom: calc(clamp(48px, 8vw, 96px) + 20px);
+    padding-bottom: calc(clamp(72px, 12vh, 128px) + 20px);
   }
 
   .hero-scrub__intro {
