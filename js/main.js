@@ -108,23 +108,16 @@
     const SCRUB_SPEED = 2;
 
     const missionBox = heroLeft.querySelector(".mission-box");
-    const missionAnchor = heroLeft.querySelector(".mission-anchor");
-    const missionRunway = heroLeft.querySelector(".mission-runway");
     const desktop = window.matchMedia("(min-width: 901px)");
 
-    // Window offset that centers the mission box under the header; the box
-    // pins here while the page scrolls through its runway.
-    function missionStickTop() {
-      const headerH = header ? header.offsetHeight : 0;
-      return headerH + (window.innerHeight - headerH - missionBox.offsetHeight) / 2;
-    }
-
-    // Distance scrolled (from the hero's top) at which the box pins, i.e.
-    // where the scroll sticks. Measured from the anchor, which stays in
-    // normal flow while the sticky box is frozen. 0 off desktop.
+    // Distance scrolled (from the hero's top) at which the mission box is
+    // centered under the header, i.e. its scroll stop. 0 off desktop.
     function desktopStickScroll() {
-      if (!missionBox || !missionAnchor || !desktop.matches) return 0;
-      return missionAnchor.getBoundingClientRect().top - hero.getBoundingClientRect().top - missionStickTop();
+      if (!missionBox || !desktop.matches) return 0;
+      const headerH = header ? header.offsetHeight : 0;
+      const target = headerH + (window.innerHeight - headerH) / 2;
+      const boxCenter = missionBox.getBoundingClientRect().top + missionBox.offsetHeight / 2;
+      return boxCenter - hero.getBoundingClientRect().top - target;
     }
 
     function updateFrame() {
@@ -157,20 +150,17 @@
 
     window.addEventListener("resize", () => { draw(currentFrame); updateFrame(); });
 
-    // Desktop: pin the box centered under the header during the stick, and
-    // size the space under it so that, once the hold ends and the next
-    // section's band reaches the bottom of the window, the box sits the same
+    // Desktop: size the space under the mission box so that, with the next
+    // section's band at the bottom of the window, the box sits the same
     // distance from the header as from the band.
     function balanceMissionSpacing() {
       if (!missionBox || !desktop.matches) {
         heroLeft.style.removeProperty("--mission-space-below");
-        heroLeft.style.removeProperty("--mission-stick-top");
         return;
       }
       const headerH = header ? header.offsetHeight : 0;
       const space = (window.innerHeight - headerH - missionBox.offsetHeight) / 2;
       heroLeft.style.setProperty("--mission-space-below", `${Math.max(72, Math.round(space))}px`);
-      heroLeft.style.setProperty("--mission-stick-top", `${Math.round(missionStickTop())}px`);
       updateFrame();
     }
 
@@ -180,71 +170,5 @@
     window.addEventListener("load", balanceMissionSpacing);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(balanceMissionSpacing);
     if (window.ResizeObserver && missionBox) new ResizeObserver(balanceMissionSpacing).observe(missionBox);
-
-    // Desktop: catch a swipe at the stick. CSS pins the box through the
-    // runway; this stops a fling from carrying on through it. Trackpad
-    // momentum can't be cancelled with preventDefault (browsers only honor
-    // that on a gesture's first wheel event), so instead the page is put
-    // back at the edge of the hold and scrolling is switched off until the
-    // swipe's momentum dies out. The box is pinned the whole time, so the
-    // correction is invisible. A new swipe then scrolls through the hold.
-    const QUIET_MS = 160;  // no wheel events for this long = swipe is over
-    const MIN_LOCK_MS = 450;
-    const MAX_LOCK_MS = 2500;
-    let lastScrollY = window.scrollY;
-    let lastWheel = 0;
-    let lockedAt = 0;
-    let lockTimer = 0;
-
-    function holdRange() {
-      const start = window.scrollY + hero.getBoundingClientRect().top + desktopStickScroll();
-      return { start, end: start + (missionRunway ? missionRunway.offsetHeight : 0) };
-    }
-
-    function unlock() {
-      lockedAt = 0;
-      clearTimeout(lockTimer);
-      document.body.classList.remove("scroll-held");
-    }
-
-    function checkUnlock() {
-      const now = performance.now();
-      const held = now - lockedAt;
-      if (held >= MAX_LOCK_MS || (held >= MIN_LOCK_MS && now - lastWheel >= QUIET_MS)) {
-        unlock();
-      } else {
-        lockTimer = setTimeout(checkUnlock, 50);
-      }
-    }
-
-    function lockAt(y) {
-      window.scrollTo({ top: y, behavior: "instant" });
-      lockedAt = performance.now();
-      document.body.classList.add("scroll-held");
-      clearTimeout(lockTimer);
-      lockTimer = setTimeout(checkUnlock, 50);
-    }
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    if (missionBox && missionAnchor && missionRunway) {
-      window.addEventListener("wheel", () => {
-        lastWheel = performance.now();
-      }, { passive: true });
-
-      window.addEventListener("scroll", () => {
-        const y = window.scrollY;
-        const prev = lastScrollY;
-        lastScrollY = y;
-        // Only wheel/trackpad swipes are caught, never scrollbar drags,
-        // keyboard or link jumps.
-        if (lockedAt || !desktop.matches || reducedMotion.matches) return;
-        if (performance.now() - lastWheel > 250) return;
-        const { start, end } = holdRange();
-        if (end - start < 1) return;
-        if (prev < start - 1 && y > start) lockAt(start);     // coming down
-        else if (prev > end + 1 && y < end) lockAt(end);      // coming back up
-      }, { passive: true });
-    }
   }
 })();

@@ -54,9 +54,6 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  /* Keep the scrollbar's space reserved so the page doesn't shift sideways
-     when scrolling is briefly held at the mission box (main.js). */
-  scrollbar-gutter: stable;
 }
 
 body {
@@ -82,8 +79,7 @@ main {
   flex: 1;
 }
 
-body.menu-open,
-body.scroll-held {
+body.menu-open {
   overflow: hidden;
 }
 
@@ -482,8 +478,7 @@ ul {
     padding-top: 0;
     /* The intro fills the space under the header, so the statement is
        centered and the box starts below the fold, this far past it. */
-    --hero-gap: clamp(72px, 12vh, 128px);
-    gap: var(--hero-gap);
+    gap: clamp(72px, 12vh, 128px);
     /* Spacing before the green section, plus the 20px the next section's
        band overlaps this one by. main.js sets --mission-space-below so the
        box ends up centered between the header and the band when the band
@@ -496,38 +491,34 @@ ul {
     align-items: center;
     min-height: calc(100vh - var(--header-height));
   }
-
-  /* The scroll "stick": the mission box pins centered under the header
-     (main.js sets --mission-stick-top) while the page scrolls through the
-     empty runway below it, holding everything still before the green
-     section arrives. The video column is sticky too and holds with it. */
-  .mission-box {
-    position: sticky;
-    top: var(--mission-stick-top, calc(var(--header-height) + 48px));
-  }
-
-  .mission-runway {
-    height: var(--mission-hold, 70vh);
-    margin-top: calc(-1 * var(--hero-gap)); /* runway = exactly the hold */
-  }
-
-  /* Zero-height marker at the box's resting spot. It stays in normal flow
-     while the sticky box is frozen, so main.js measures the stick from it. */
-  .mission-anchor {
-    margin-bottom: calc(-1 * var(--hero-gap));
-  }
 }
 
-@media (max-width: 900px), (prefers-reduced-motion: reduce) {
-  .mission-runway {
-    display: none;
+/* ==========================================================================
+   Home: section-by-section scrolling
+   Homepage (html.snap-sections), desktop pointers only; phones and tablets
+   keep free scrolling. The page stops at the top (the statement), again
+   with the mission box centered under the header, then at the green
+   section and the footer. snap-stop means a hard swipe can't skip a stop.
+   ========================================================================== */
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+  html.snap-sections {
+    scroll-snap-type: y mandatory;
   }
-}
-
-@media (max-width: 900px) {
-  .mission-anchor {
-    display: none;
+  .snap-sections :is(.hero-scrub__intro, main > .section) {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
+  /* The header sits above <main>, so the statement's stop is the page top.
+     (The whole hero is taller than the window, so it can't be the stop.) */
+  .snap-sections .hero-scrub__intro { scroll-margin-top: var(--header-height); }
+  /* Extending the box's snap area up by the header's height centers the
+     box in the space below the header rather than in the whole window. */
+  .snap-sections .mission-box {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    scroll-margin-top: var(--header-height);
+  }
+  .snap-sections .site-footer { scroll-snap-align: end; }
 }
 
 .hero-scrub__statement {
