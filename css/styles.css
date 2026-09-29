@@ -518,15 +518,17 @@ ul {
     scroll-snap-stop: always;
     scroll-margin-top: var(--header-height);
   }
-  /* The green section stops just under the header and fills the rest of
-     the window, so the footer doesn't peek up below it. */
+  /* The green section fills the whole window at its stop, running up
+     behind the header so no video shows through there, and the footer
+     stays below. Extra top padding keeps its content centered in the space
+     under the header. */
   .snap-sections main > .section--green {
     scroll-snap-align: center;
-    scroll-margin-top: var(--header-height);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: calc(100vh - var(--header-height));
+    min-height: 100vh;
+    padding-top: calc(var(--section-space) + var(--header-height));
   }
   .snap-sections .site-footer { scroll-snap-align: end; }
 }
