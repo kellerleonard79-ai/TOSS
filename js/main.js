@@ -189,7 +189,32 @@
       return rect.top + rect.height / 2 - target; // >0: box is below center
     }
 
+    function land(now) {
+      window.scrollBy({ top: offCenter(), behavior: "instant" });
+      stuck = true;
+      freshGesture = false;
+      stuckAt = now;
+      stuckAmount = 0;
+    }
+
     if (missionBox && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // A fast swipe can scroll past the center before the wheel handler
+      // sees it (the browser scrolls off the main thread), so also catch
+      // the crossing after the fact and pull the page back to the center.
+      let lastOff = null;
+      window.addEventListener("scroll", () => {
+        if (!desktop.matches) { lastOff = null; return; }
+        const off = offCenter();
+        const prev = lastOff;
+        lastOff = off;
+        if (prev === null || stuck) return;
+        if (spent && Math.abs(off) > REARM_DISTANCE) spent = false;
+        if (spent) return;
+        const wheeling = performance.now() - lastWheel < 300;
+        const crossed = (prev > 0 && off <= 0) || (prev < 0 && off >= 0);
+        if (wheeling && crossed) land(performance.now());
+      }, { passive: true });
+
       window.addEventListener("wheel", (e) => {
         if (!desktop.matches || e.ctrlKey || e.deltaY === 0) return;
         const off = offCenter();
@@ -201,12 +226,12 @@
           spent = false;
         }
 
-        if (spent && Math.abs(off) > REARM_DISTANCE) spent = false;
-        if (spent && !stuck) return;
-
         const now = performance.now();
         const gap = now - lastWheel;
         lastWheel = now;
+
+        if (spent && Math.abs(off) > REARM_DISTANCE) spent = false;
+        if (spent && !stuck) return;
 
         if (stuck) {
           e.preventDefault();
@@ -228,11 +253,7 @@
           || (e.deltaY < 0 && off < 0 && off - e.deltaY >= 0);
         if (crossing) {
           e.preventDefault();
-          window.scrollBy({ top: off, behavior: "instant" });
-          stuck = true;
-          freshGesture = false;
-          stuckAt = now;
-          stuckAmount = 0;
+          land(now);
         }
       }, { passive: false });
     }
