@@ -160,12 +160,17 @@
         return;
       }
       const headerH = header ? header.offsetHeight : 0;
-      const space = (window.innerHeight - headerH - missionBox.offsetHeight) / 2;
+      // Extra buffer so the green band never peeks in at the stick.
+      const space = (window.innerHeight - headerH - missionBox.offsetHeight) / 2 + 32;
       heroLeft.style.setProperty("--mission-space-below", `${Math.max(72, Math.round(space))}px`);
     }
 
     balanceMissionSpacing();
     window.addEventListener("resize", balanceMissionSpacing);
+    // Web fonts and late layout change the box's height after first paint.
+    window.addEventListener("load", balanceMissionSpacing);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(balanceMissionSpacing);
+    if (window.ResizeObserver && missionBox) new ResizeObserver(balanceMissionSpacing).observe(missionBox);
 
     // Desktop: make the wheel "stick" for a moment when the mission box
     // reaches the middle of the window, before the green section comes in.
