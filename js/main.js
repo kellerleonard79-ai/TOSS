@@ -148,5 +148,65 @@
 
     balanceMissionSpacing();
     window.addEventListener("resize", balanceMissionSpacing);
+
+    // Desktop: make the wheel "stick" for a moment when the mission box
+    // reaches the middle of the window, before the green section comes in.
+    // Scrolling stops exactly at the centered position and only continues
+    // once the visitor has scrolled STICK_DISTANCE more pixels.
+    const STICK_DISTANCE = 500;
+    const GESTURE_GAP = 140; // ms of quiet that ends a swipe (and its momentum)
+    const REARM_DISTANCE = 240;
+    let stuck = false;
+    let stuckAmount = 0;
+    let lastWheel = 0;
+    let freshGesture = false;
+    let spent = false; // already stuck once; re-arms after moving away
+
+    function offCenter() {
+      const headerH = header ? header.offsetHeight : 0;
+      const target = headerH + (window.innerHeight - headerH) / 2;
+      const rect = missionBox.getBoundingClientRect();
+      return rect.top + rect.height / 2 - target; // >0: box is below center
+    }
+
+    if (missionBox && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.addEventListener("wheel", (e) => {
+        if (!desktop.matches || e.ctrlKey || e.deltaY === 0) return;
+        const off = offCenter();
+
+        if (spent && Math.abs(off) > REARM_DISTANCE) spent = false;
+        if (spent && !stuck) return;
+
+        const now = performance.now();
+        const gap = now - lastWheel;
+        lastWheel = now;
+
+        if (stuck) {
+          e.preventDefault();
+          // The swipe that landed here (and its momentum tail) is swallowed
+          // whole; only a new gesture after a pause can push past.
+          if (gap > GESTURE_GAP) freshGesture = true;
+          if (!freshGesture) return;
+          if (gap > 400) stuckAmount = 0; // must keep pushing, not tap
+          stuckAmount += Math.abs(e.deltaY);
+          if (stuckAmount >= STICK_DISTANCE) {
+            stuck = false;
+            spent = true;
+          }
+          return;
+        }
+
+        // Would this wheel step carry the box across the center line?
+        const crossing = (e.deltaY > 0 && off > 0 && off - e.deltaY <= 0)
+          || (e.deltaY < 0 && off < 0 && off - e.deltaY >= 0);
+        if (crossing) {
+          e.preventDefault();
+          window.scrollBy(0, off);
+          stuck = true;
+          freshGesture = false;
+          stuckAmount = 0;
+        }
+      }, { passive: false });
+    }
   }
 })();
