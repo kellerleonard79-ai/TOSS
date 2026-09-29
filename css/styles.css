@@ -269,20 +269,6 @@ ul {
     rgba(255, 255, 255, 1) 0%,
     rgba(255, 255, 255, 0) 100%
   );
-  backdrop-filter: none;
-  transition: background var(--duration) var(--ease),
-    backdrop-filter var(--duration) var(--ease);
-}
-
-.site-header:hover,
-.site-header:focus-within {
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 80%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  backdrop-filter: blur(8px);
 }
 
 .nav {
