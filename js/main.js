@@ -96,26 +96,23 @@
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       img.src = framePath(i + 1);
-      if (i === 0) img.onload = () => draw(0);
+      // Frames still loading when the scroll reaches them (slow phone
+      // connections) are drawn as soon as they arrive.
+      img.onload = () => { if (i === currentFrame) draw(i); };
       frames.push(img);
     }
 
-    // Spread the frames across the entire mission column's height (not
-    // just the shorter window the video is actually stuck for), so the
-    // beads keep settling all the way to the bottom of the about section
-    // instead of freezing on the last frame partway through.
-    // Reach the final frame right as the mission heading + copy have fully
-    // scrolled into view below the header, so the beads finish settling
-    // exactly when the reader can see the whole "about" block at once.
-    const SCRUB_SPEED = 2;
-
     const missionBox = heroLeft.querySelector(".mission-box");
-    const desktop = window.matchMedia("(min-width: 901px)");
+    // Side-by-side hero (statement left, sticky video right); otherwise it's
+    // stacked. Keep in sync with the matching media queries in styles.css.
+    const sideBySide = window.matchMedia(
+      "(min-width: 901px) and (min-height: 500px), (min-width: 700px) and (orientation: portrait)"
+    );
 
     // Distance scrolled (from the hero's top) at which the mission box is
-    // centered under the header, i.e. its scroll stop. 0 off desktop.
+    // centered under the header, i.e. its scroll stop. 0 when stacked.
     function desktopStickScroll() {
-      if (!missionBox || !desktop.matches) return 0;
+      if (!missionBox || !sideBySide.matches) return 0;
       const headerH = header ? header.offsetHeight : 0;
       const target = headerH + (window.innerHeight - headerH) / 2;
       const boxCenter = missionBox.getBoundingClientRect().top + missionBox.offsetHeight / 2;
@@ -127,14 +124,15 @@
       let progress;
       const stickY = desktopStickScroll();
       if (stickY > 0) {
-        // Desktop: land on the final frame exactly where the scroll sticks.
+        // Side by side: land on the final frame exactly where the scroll sticks.
         progress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / stickY));
       } else {
-        const scrollable = heroLeft.offsetHeight;
-        const rawProgress = scrollable > 0
-          ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / scrollable))
-          : 0;
-        progress = Math.min(1, rawProgress * SCRUB_SPEED);
+        // Stacked: the canvas is pinned while its runway (the right cell)
+        // scrolls past; play the frames across exactly that stretch, from
+        // the moment it pins until it lets go.
+        const travel = heroRight.offsetHeight - canvas.offsetHeight;
+        const pinned = canvas.getBoundingClientRect().top - heroRight.getBoundingClientRect().top;
+        progress = travel > 0 ? Math.min(1, Math.max(0, pinned / travel)) : 0;
       }
       const index = Math.min(FRAME_COUNT - 1, Math.round(progress * (FRAME_COUNT - 1)));
       if (index !== currentFrame) {
@@ -152,12 +150,13 @@
 
     window.addEventListener("resize", () => { draw(currentFrame); updateFrame(); });
 
-    // Desktop: size the space under the mission box so that, with the next
-    // section's band at the bottom of the window, the box sits the same
+    // Side by side: size the space under the mission box so that, with the
+    // next section's band at the bottom of the window, the box sits the same
     // distance from the header as from the band.
     function balanceMissionSpacing() {
-      if (!missionBox || !desktop.matches) {
+      if (!missionBox || !sideBySide.matches) {
         heroLeft.style.removeProperty("--mission-space-below");
+        updateFrame();
         return;
       }
       const headerH = header ? header.offsetHeight : 0;

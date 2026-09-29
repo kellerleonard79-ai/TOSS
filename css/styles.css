@@ -201,9 +201,16 @@ ul {
   transition: background-size var(--duration) var(--ease);
 }
 
-.link:hover,
 .link[aria-current="page"] {
   background-size: 100% 1px;
+}
+
+/* Hover effects only where there's a real pointer; on touch screens a tap
+   would otherwise leave them stuck on. */
+@media (hover: hover) {
+  .link:hover {
+    background-size: 100% 1px;
+  }
 }
 
 /* ==========================================================================
@@ -229,8 +236,10 @@ ul {
     transform var(--duration) var(--ease);
 }
 
-.btn:hover {
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .btn--primary {
@@ -246,6 +255,7 @@ ul {
 .email-pill {
   display: inline-flex;
   align-items: center;
+  max-width: 100%;
   gap: 6px;
   padding: 6px 8px 6px 26px;
   background: var(--purple);
@@ -316,6 +326,19 @@ ul {
   );
 }
 
+/* Everywhere but the desktop snap layout (see "Section-by-section
+   scrolling"), pages scroll freely and text passes right under the see-
+   through header, so it frosts over once the page scrolls (main.js toggles
+   .is-scrolled). */
+@media not all and (min-width: 901px) and (min-height: 500px) and (hover: hover) and (pointer: fine) {
+  .site-header.is-scrolled {
+    background: rgba(255, 255, 255, 0.88);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
+    box-shadow: 0 1px 0 var(--purple-tint);
+  }
+}
+
 .nav {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -356,9 +379,9 @@ ul {
 .nav__toggle {
   display: none;
   position: relative;
-  width: 40px;
-  height: 40px;
-  margin-right: -8px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
   padding: 0;
   border: 0;
   background: none;
@@ -368,7 +391,7 @@ ul {
 
 .nav__toggle span {
   position: absolute;
-  left: 10px;
+  left: 12px;
   width: 20px;
   height: 1.5px;
   background: currentColor;
@@ -376,11 +399,11 @@ ul {
 }
 
 .nav__toggle span:first-child {
-  top: 16px;
+  top: 18px;
 }
 
 .nav__toggle span:last-child {
-  top: 23px;
+  top: 25px;
 }
 
 .nav__toggle[aria-expanded="true"] span:first-child {
@@ -432,6 +455,15 @@ ul {
     visibility: visible;
   }
 
+  /* Solid behind the open menu, so nothing on the page shows through. The
+     scrolled header's backdrop-filter is dropped too: it would make the
+     fixed menu panel size itself to the header instead of the window. */
+  .menu-open .site-header {
+    background: var(--white);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   .nav__links .link {
     background-size: 0 0;
   }
@@ -453,9 +485,20 @@ ul {
   padding: 0;
 }
 
-/* Desktop only: pull the next section up so its band overlaps the
-   sticky video's bottom edge by a small bit, instead of leaving a gap. */
-@media (min-width: 901px) {
+/* The hero has two layouts. Side by side (statement left, sticky video
+   right) on desktops, iPads and any window that's wide and tall enough or
+   upright; stacked (statement, video, mission box) on phones and short or
+   narrow landscape windows. The two media queries below are exact opposites;
+   keep them, and the copy in main.js, in sync:
+     side by side: (min-width: 901px) and (min-height: 500px),
+                   (min-width: 700px) and (orientation: portrait)
+     stacked:      (max-width: 699px),
+                   (max-width: 900px) and (orientation: landscape),
+                   (max-height: 499px) and (orientation: landscape) */
+
+/* Side by side: pull the next section up so its band overlaps the sticky
+   video's bottom edge by a small bit, instead of leaving a gap. */
+@media (min-width: 901px) and (min-height: 500px), (min-width: 700px) and (orientation: portrait) {
   .hero-scrub + .section {
     position: relative;
     z-index: 1;
@@ -480,13 +523,12 @@ ul {
   padding-top: clamp(16px, 3vw, 40px);
 }
 
-/* Desktop only: the statement alone fills the first viewport, so the page
+/* Side by side: the statement alone fills the first viewport, so the page
    reads as a pure hero until the visitor scrolls — the mission heading and
    copy that follow in the flex column are pushed below the fold. The
-   column's own padding-top is zeroed here (it's only needed to space the
-   statement down on mobile, where this rule doesn't apply) so the intro
-   block's centering isn't thrown off by an extra offset on top of it. */
-@media (min-width: 901px) {
+   column's own padding-top is zeroed here so the intro block's centering
+   isn't thrown off by an extra offset on top of it. */
+@media (min-width: 901px) and (min-height: 500px), (min-width: 700px) and (orientation: portrait) {
   .hero-scrub__left {
     padding-top: 0;
     /* The intro fills the space under the header, so the statement is
@@ -503,6 +545,9 @@ ul {
     display: flex;
     align-items: center;
     min-height: calc(100vh - var(--header-height));
+    /* The window's height with the browser's toolbars showing (iPad Safari);
+       the same as 100vh on desktops. */
+    min-height: calc(100svh - var(--header-height));
   }
 }
 
@@ -514,9 +559,10 @@ ul {
    at each section and the footer. snap-stop means a hard swipe can't skip
    a stop. Each plain section is sized to exactly one window with its
    content centered under the header, so a stop shows one section and
-   nothing of its neighbors.
+   nothing of its neighbors. Windows under 500px tall (where the hero is
+   stacked) scroll freely too.
    ========================================================================== */
-@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 901px) and (min-height: 500px) and (hover: hover) and (pointer: fine) {
   html.snap-sections {
     scroll-snap-type: y mandatory;
     /* Space kept between a section's content and the header / window edge. */
@@ -599,26 +645,133 @@ ul {
   aspect-ratio: 480 / 854;
 }
 
-@media (max-width: 900px) {
+/* Upright tablets: narrower columns, so a smaller statement, centered
+   beside the video (the intro is as tall as the video, which is ~43vw wide
+   at these sizes) rather than in a whole window's height. The window is
+   tall enough to show all of the video, so it sticks below the header
+   instead of running up behind it. */
+@media (min-width: 700px) and (orientation: portrait) {
+  .hero-scrub__statement {
+    font-size: clamp(2rem, 4.5vw, 4.5rem);
+    text-wrap: balance;
+  }
+
+  .hero-scrub__intro {
+    min-height: calc(43vw * 854 / 480);
+  }
+
+  .hero-scrub__right {
+    top: var(--header-height);
+    margin-top: 0;
+  }
+}
+
+/* Stacked: statement, video, mission box in one column. The left column's
+   wrapper steps out of the layout (display: contents) so the video can sit
+   between its two children. The video's cell is a runway one screen taller
+   than the video: the canvas pins below the header while the runway scrolls
+   past, and main.js plays the frames across exactly that stretch. The
+   canvas's height is set (not its width) so it always fits the screen. */
+@media (max-width: 699px), (max-width: 900px) and (orientation: landscape), (max-height: 499px) and (orientation: landscape) {
   .hero-scrub {
     padding-bottom: clamp(64px, 10vw, 120px);
   }
 
   .hero-scrub__grid {
-    grid-template-columns: 1fr;
+    --screen-h: 100vh;
+    --canvas-h: min(
+      calc(var(--screen-h) - var(--header-height) - 32px),
+      calc((100vw - var(--gutter)) * 854 / 480)
+    );
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(32px, 6vw, 48px);
     text-align: center;
+  }
+
+  /* The window's height with the browser's toolbars showing. */
+  @supports (height: 100svh) {
+    .hero-scrub__grid {
+      --screen-h: 100svh;
+    }
+  }
+
+  .hero-scrub__left {
+    display: contents;
+  }
+
+  .hero-scrub__intro {
+    padding-top: clamp(16px, 3vw, 40px);
+  }
+
+  .hero-scrub__statement {
+    margin-inline: auto;
+    text-wrap: balance;
   }
 
   .hero-scrub__right {
     position: static;
-    order: -1;
-    margin-bottom: 8px;
-    margin-right: 0;
-    justify-content: center;
+    order: 1;
+    align-items: flex-start;
+    height: calc(var(--canvas-h) + var(--screen-h));
+    margin-top: 0;
+    /* The arm enters from the screen's right edge, as on desktop. */
+    margin-right: calc(-1 * var(--gutter));
   }
 
   .hero__canvas {
-    max-width: 260px;
+    position: sticky;
+    top: calc(var(--header-height) + 16px);
+    width: auto;
+    max-width: none;
+    height: var(--canvas-h);
+  }
+
+  .hero-scrub .mission-box {
+    order: 2;
+    width: 100%;
+    max-width: 680px;
+    margin-inline: auto;
+    text-align: left;
+  }
+}
+
+/* Stacked in landscape (phones turned sideways): a screen-height video is
+   narrow, so it goes back beside the left column (statement, then mission
+   box), like a small desktop. Its runway is that column's height, so the
+   video stays pinned while the column scrolls past, and the statement is
+   centered against it to start. */
+@media (max-width: 900px) and (orientation: landscape), (max-height: 499px) and (orientation: landscape) {
+  .hero-scrub__grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding-top: 16px;
+    text-align: left;
+  }
+
+  .hero-scrub__left {
+    display: flex;
+    padding-top: 0;
+  }
+
+  .hero-scrub__intro {
+    display: flex;
+    align-items: center;
+    min-height: var(--canvas-h);
+    padding-top: 0;
+  }
+
+  .hero-scrub__statement {
+    margin-inline: 0;
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  }
+
+  .hero-scrub__right {
+    align-self: stretch;
+    height: auto;
+  }
+
+  .hero-scrub .mission-box {
+    max-width: none;
+    margin-inline: 0;
   }
 }
 
@@ -649,13 +802,14 @@ ul {
 }
 
 /* Keep the stat on one line: size it from the box's own width (cqi) so it
-   shrinks with the column instead of wrapping. */
+   shrinks with the column instead of wrapping. The cap (about its desktop
+   size) keeps it from towering over the statement in wider stacked boxes. */
 .mission-box {
   container-type: inline-size;
 }
 
 .mission-box .mission__stat {
-  font-size: 12.4cqi; /* "25 Million Pounds" spans the full width of the text lines */
+  font-size: min(12.4cqi, 4.25rem); /* "25 Million Pounds" spans the full width of the text lines */
   white-space: nowrap;
 }
 
@@ -824,6 +978,7 @@ ul {
   font-weight: 800;
   font-size: clamp(1.5rem, 2.4vw, 1.875rem);
   color: var(--purple);
+  text-wrap: balance;
 }
 
 .founder__role {
@@ -854,7 +1009,7 @@ ul {
 /* With section snapping on, the founders section has to fit one window, so
    its sizes also scale with the window's height and give way on short
    screens (they're unchanged from about 1080px tall up). */
-@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 901px) and (min-height: 500px) and (hover: hover) and (pointer: fine) {
   .snap-sections .about-title { font-size: clamp(2.25rem, min(5.5vw, 9vh), 4.5rem); }
   .snap-sections .founders { margin-top: clamp(24px, 6vh, 64px); }
   .snap-sections .founder { padding: clamp(20px, min(4vw, 4.5vh), 48px); }
@@ -887,6 +1042,8 @@ ul {
 @media (max-width: 767px) {
   .founders {
     grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-inline: auto;
   }
 }
 
