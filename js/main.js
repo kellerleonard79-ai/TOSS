@@ -129,5 +129,24 @@
     }, { passive: true });
 
     window.addEventListener("resize", () => draw(currentFrame));
+
+    // Desktop: size the space under the mission box so that, with the next
+    // section's band at the bottom of the window, the box sits the same
+    // distance from the header as from the band.
+    const missionBox = heroLeft.querySelector(".mission-box");
+    const desktop = window.matchMedia("(min-width: 901px)");
+
+    function balanceMissionSpacing() {
+      if (!missionBox || !desktop.matches) {
+        heroLeft.style.removeProperty("--mission-space-below");
+        return;
+      }
+      const headerH = header ? header.offsetHeight : 0;
+      const space = (window.innerHeight - headerH - missionBox.offsetHeight) / 2;
+      heroLeft.style.setProperty("--mission-space-below", `${Math.max(72, Math.round(space))}px`);
+    }
+
+    balanceMissionSpacing();
+    window.addEventListener("resize", balanceMissionSpacing);
   }
 })();

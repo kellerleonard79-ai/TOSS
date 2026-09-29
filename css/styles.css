@@ -478,9 +478,11 @@ ul {
     /* The intro fills the space under the header, so the statement is
        centered and the box starts below the fold, this far past it. */
     gap: clamp(72px, 12vh, 128px);
-    /* Same spacing before the green section, plus the 20px the next
-       section's band overlaps this one by. */
-    padding-bottom: calc(clamp(72px, 12vh, 128px) + 20px);
+    /* Spacing before the green section, plus the 20px the next section's
+       band overlaps this one by. main.js sets --mission-space-below so the
+       box ends up centered between the header and the band when the band
+       reaches the bottom of the window; the fallback covers no-JS. */
+    padding-bottom: calc(var(--mission-space-below, max(72px, 12vh)) + 20px);
   }
 
   .hero-scrub__intro {
