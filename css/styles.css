@@ -487,7 +487,7 @@ ul {
 
 /* The hero has two layouts. Side by side (statement left, sticky video
    right) on desktops, iPads and any window that's wide and tall enough or
-   upright; stacked (statement, video, mission box) on phones and short or
+   upright; stacked (video, statement, mission box) on phones and short or
    narrow landscape windows. The two media queries below are exact opposites;
    keep them, and the copy in main.js, in sync:
      side by side: (min-width: 901px) and (min-height: 500px),
@@ -666,12 +666,14 @@ ul {
   }
 }
 
-/* Stacked: statement, video, mission box in one column. The left column's
-   wrapper steps out of the layout (display: contents) so the video can sit
-   between its two children. The video's cell is a runway one screen taller
+/* Stacked: video, statement, mission box in one column. The left column's
+   wrapper steps out of the layout (display: contents) so the video can come
+   before its two children. The video's cell is a runway one screen taller
    than the video: the canvas pins below the header while the runway scrolls
-   past, and main.js plays the frames across exactly that stretch. The
-   canvas's height is set (not its width) so it always fits the screen. */
+   past, and main.js plays the frames across exactly that stretch. The grid
+   starts the canvas right at its pin line, so the frames play from the
+   first bit of scrolling. The canvas's height is set (not its width) so it
+   always fits the screen. */
 @media (max-width: 699px), (max-width: 900px) and (orientation: landscape), (max-height: 499px) and (orientation: landscape) {
   .hero-scrub {
     padding-bottom: clamp(64px, 10vw, 120px);
@@ -685,6 +687,7 @@ ul {
     );
     grid-template-columns: minmax(0, 1fr);
     gap: clamp(32px, 6vw, 48px);
+    padding-top: 16px;
     text-align: center;
   }
 
@@ -700,6 +703,7 @@ ul {
   }
 
   .hero-scrub__intro {
+    order: 1;
     padding-top: clamp(16px, 3vw, 40px);
   }
 
@@ -710,7 +714,6 @@ ul {
 
   .hero-scrub__right {
     position: static;
-    order: 1;
     align-items: flex-start;
     height: calc(var(--canvas-h) + var(--screen-h));
     margin-top: 0;
@@ -743,7 +746,6 @@ ul {
 @media (max-width: 900px) and (orientation: landscape), (max-height: 499px) and (orientation: landscape) {
   .hero-scrub__grid {
     grid-template-columns: minmax(0, 1fr) auto;
-    padding-top: 16px;
     text-align: left;
   }
 
