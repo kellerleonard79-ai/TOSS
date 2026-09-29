@@ -8,7 +8,7 @@ A quick reference for how the site should look and feel. Keep every new page, gr
 |---|---|---|---|
 | 🟣 | **Plum Purple** | `#6F3BA6` | The brand color. Headlines, buttons, links, icons — anything that should feel like "TOSS." |
 | 💜 | **Lavender** | `#D3BFEA` | A lighter, softer version of the brand purple. Backgrounds, section bands, and cards where full purple would be too heavy. |
-| 🟢 | **Pastel Green** | `#C7E4BD` | Soft backgrounds, section bands, cards, subtle highlights. Calm and friendly, never loud. |
+| 🟢 | **Pastel Green** | `#E6F2E0` | Soft backgrounds, section bands, cards, subtle highlights. Calm and friendly, never loud. |
 | 🌿 | **Green** | `#1E8449` | A brighter, grounded green for text, icons, and small details that need to read clearly against white. |
 | 🟡 | **Warm Yellow** | `#F3DDA0` | Accents and small pops of energy — badges, highlights, illustration details. Use sparingly. |
 | ⚪ | **White** | `#FFFFFF` | The main background. Keeps the page open, clean, and easy to read. |

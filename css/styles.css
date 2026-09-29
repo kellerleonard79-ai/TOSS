@@ -14,7 +14,8 @@
   --purple: #6f3ba6;
   --purple-tint: #f1e9fa;
   --green: #1e8449;         /* accessible text/icon green */
-  --green-pastel: #c7e4bd;  /* pastel fill green, matches the mascot's shell */
+  --green-pastel: #e6f2e0;  /* pastel fill green, light */
+  --lavender: #d3bfea;      /* soft brand purple, for backgrounds and section bands */
   --green-pastel-deep: #9dcd91;
   --gold: #c08f2e;          /* accessible text/icon gold */
   --gold-pastel: #f3ddA0;   /* pastel fill gold, matches the mascot's sparkle */
@@ -159,6 +160,10 @@ ul {
   background: var(--surface);
 }
 
+.section--green {
+  background: var(--green-pastel);
+}
+
 /* ==========================================================================
    Typography
    ========================================================================== */
@@ -245,17 +250,6 @@ ul {
 .btn--ghost:hover {
   background: var(--purple);
   color: var(--white);
-}
-
-.btn--on-dark {
-  border-color: var(--gold-pastel);
-  color: var(--white);
-}
-
-.btn--on-dark:hover {
-  background: var(--gold-pastel);
-  color: var(--ink);
-  border-color: var(--gold-pastel);
 }
 
 .btn--sm {
@@ -457,7 +451,7 @@ ul {
   /* Nudge the about copy up clear of that overlapping band. A transform
      (not margin) is used so it doesn't change the column's flow height,
      which would otherwise shift the sticky video's release point too. */
-  .mission__body {
+  .mission-box {
     transform: translateY(-40px);
   }
 }
@@ -564,6 +558,18 @@ ul {
 /* ==========================================================================
    Mission / description section
    ========================================================================== */
+.mission-box {
+  background: var(--lavender);
+  border-radius: var(--radius);
+  padding: clamp(28px, 4vw, 48px);
+}
+
+.mission-box .h2,
+.mission-box .mission__body,
+.mission-box .mission__body strong {
+  color: var(--purple);
+}
+
 .mission__head {
   max-width: 60ch;
   margin-bottom: 12px;
@@ -573,6 +579,17 @@ ul {
   font-size: clamp(2.75rem, 6.5vw, 5rem);
   line-height: 1;
   letter-spacing: -0.02em;
+}
+
+/* Keep the stat on one line: size it from the box's own width (cqi) so it
+   shrinks with the column instead of wrapping. */
+.mission-box {
+  container-type: inline-size;
+}
+
+.mission-box .mission__stat {
+  font-size: 12.4cqi; /* "25 Million Pounds" spans the full width of the text lines */
+  white-space: nowrap;
 }
 
 .mission__body {
@@ -591,126 +608,84 @@ ul {
 /* ==========================================================================
    Donate + progress section
    ========================================================================== */
-.donate-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-  align-items: stretch;
+.donate {
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
 }
 
-.card {
-  padding: clamp(28px, 4vw, 44px);
-  border-radius: var(--radius);
+.donate .h2 {
+  color: var(--green);
 }
 
-.donate-card {
-  background: var(--purple);
-  color: var(--white);
+.donate .lead {
+  margin: 14px auto 0;
+  color: var(--green);
 }
 
-.donate-card .h3 {
-  color: var(--white);
-  margin-bottom: 14px;
+.donate__progress {
+  margin: 32px 0;
+  text-align: left;
 }
 
-.donate-card p {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.donate-card__actions {
-  margin-top: 28px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.contact-list {
-  margin-top: 24px;
-  display: grid;
-  gap: 10px;
-  font-size: 15px;
-}
-
-.contact-list a {
-  color: var(--white);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-  padding-bottom: 1px;
-  transition: border-color var(--duration) var(--ease);
-}
-
-.contact-list a:hover {
-  border-color: var(--white);
-}
-
-.progress-card {
-  background: var(--white);
-  border: 1.5px solid var(--line);
-}
-
-.progress-card .h3 {
-  margin-bottom: 4px;
-}
-
-.progress-amount {
+.donate__amount {
   font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 4vw, 3rem);
-  color: var(--purple);
+  font-size: clamp(2rem, 4vw, 2.75rem);
   line-height: 1;
+  color: var(--purple);
 }
 
-.progress-goal {
-  margin-top: 6px;
-  color: var(--ink-soft);
-  font-size: 15px;
-}
-
-.progress-bar {
-  margin-top: 32px;
+.donate__of {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--green);
 }
 
 .progress-track {
-  position: relative;
-  height: 18px;
+  height: 20px;
+  margin: 22px 0 16px;
   border-radius: 999px;
-  background: var(--surface-deep);
-  overflow: hidden;
+  background: var(--white);
+  box-shadow: inset 0 1px 3px rgba(111, 59, 166, 0.14);
 }
 
 .progress-fill {
   position: relative;
   height: 100%;
   width: var(--progress, 0%);
+  min-width: 20px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--green-pastel-deep), var(--green));
   transition: width 900ms var(--ease);
 }
 
+/* Fleur-de-lis marker at the end of the fill */
 .progress-fill::after {
   content: "";
   position: absolute;
   top: 50%;
-  right: -1px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--gold-pastel);
-  border: 2px solid var(--white);
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: url("../fleur-de-lis.svg") center / contain no-repeat;
   transform: translate(50%, -50%);
-  box-shadow: 0 0 0 1.5px var(--green);
+  filter: drop-shadow(0 2px 3px rgba(30, 132, 73, 0.35));
 }
 
-.progress-ticks {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  font-size: 13px;
-  color: var(--ink-soft);
+.donate__percent {
+  font-size: 15px;
+  color: var(--green);
 }
 
-@media (max-width: 900px) {
-  .donate-grid {
-    grid-template-columns: 1fr;
-  }
+.donate__alt {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--green);
+}
+
+.donate__alt a {
+  color: inherit;
+  border-bottom: 1px solid currentColor;
 }
 
 /* ==========================================================================
