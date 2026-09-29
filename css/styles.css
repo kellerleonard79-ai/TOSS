@@ -569,6 +569,12 @@ ul {
   margin-bottom: 12px;
 }
 
+.mission__stat {
+  font-size: clamp(2.75rem, 6.5vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
 .mission__body {
   display: grid;
   gap: 20px;
