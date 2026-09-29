@@ -172,3 +172,28 @@
     if (window.ResizeObserver && missionBox) new ResizeObserver(balanceMissionSpacing).observe(missionBox);
   }
 })();
+
+// Copy-to-clipboard buttons (e.g. the donate email address).
+document.querySelectorAll("[data-copy]").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const text = btn.dataset.copy;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (e) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (err) { /* ignore */ }
+      ta.remove();
+    }
+    btn.classList.add("is-copied");
+    btn.setAttribute("aria-label", "Copied");
+    setTimeout(() => {
+      btn.classList.remove("is-copied");
+      btn.setAttribute("aria-label", "Copy email address");
+    }, 1800);
+  });
+});

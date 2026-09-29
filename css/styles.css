@@ -243,6 +243,51 @@ ul {
   border-color: var(--purple);
 }
 
+.email-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 6px 26px;
+  background: var(--purple);
+  color: var(--white);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.email-pill__link {
+  color: inherit;
+}
+
+.email-pill__copy {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color var(--duration) var(--ease);
+}
+
+.email-pill__copy:hover,
+.email-pill__copy:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.email-pill__copy .icon-check,
+.email-pill__copy.is-copied .icon-copy {
+  display: none;
+}
+
+.email-pill__copy.is-copied .icon-check {
+  display: block;
+}
+
 .btn--ghost {
   border-color: currentColor;
 }
