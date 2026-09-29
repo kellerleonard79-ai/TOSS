@@ -153,11 +153,13 @@
     // reaches the middle of the window, before the green section comes in.
     // Scrolling stops exactly at the centered position and only continues
     // once the visitor has scrolled STICK_DISTANCE more pixels.
-    const STICK_DISTANCE = 500;
+    const STICK_DISTANCE = 400;
     const GESTURE_GAP = 140; // ms of quiet that ends a swipe (and its momentum)
     const REARM_DISTANCE = 240;
     let stuck = false;
     let stuckAmount = 0;
+    const LOCK_MS = 900; // momentum from the landing swipe is over by then
+    let stuckAt = 0;
     let lastWheel = 0;
     let freshGesture = false;
     let spent = false; // already stuck once; re-arms after moving away
@@ -174,6 +176,13 @@
         if (!desktop.matches || e.ctrlKey || e.deltaY === 0) return;
         const off = offCenter();
 
+        // Scrolled away by other means (scrollbar, keys, jump link): let go
+        // so the wheel is never swallowed away from the center.
+        if (stuck && Math.abs(off) > 60) {
+          stuck = false;
+          spent = false;
+        }
+
         if (spent && Math.abs(off) > REARM_DISTANCE) spent = false;
         if (spent && !stuck) return;
 
@@ -185,7 +194,7 @@
           e.preventDefault();
           // The swipe that landed here (and its momentum tail) is swallowed
           // whole; only a new gesture after a pause can push past.
-          if (gap > GESTURE_GAP) freshGesture = true;
+          if (gap > GESTURE_GAP || now - stuckAt > LOCK_MS) freshGesture = true;
           if (!freshGesture) return;
           if (gap > 400) stuckAmount = 0; // must keep pushing, not tap
           stuckAmount += Math.abs(e.deltaY);
@@ -201,9 +210,10 @@
           || (e.deltaY < 0 && off < 0 && off - e.deltaY >= 0);
         if (crossing) {
           e.preventDefault();
-          window.scrollBy(0, off);
+          window.scrollBy({ top: off, behavior: "instant" });
           stuck = true;
           freshGesture = false;
+          stuckAt = now;
           stuckAmount = 0;
         }
       }, { passive: false });
