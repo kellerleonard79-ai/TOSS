@@ -343,14 +343,7 @@ ul {
 }
 
 .nav__brand {
-  display: inline-flex;
-  align-items: center;
   justify-self: start;
-}
-
-.nav__logo {
-  height: 48px;
-  width: auto;
 }
 
 /* Sits in the grid's middle column, so it's centered in the navbar

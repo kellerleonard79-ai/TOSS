@@ -3,16 +3,18 @@
   // Update these two numbers as donations come in. Everything else
   // (bar width, percentage, dollar labels) recalculates from them.
   const CAMPAIGN = {
-    raised: 2250,
+    raised: 0.01,
     goal: 3000,
   };
 
   const fill = document.querySelector("[data-progress-fill]");
   if (fill) {
     const percent = Math.max(0, Math.min(100, Math.round((CAMPAIGN.raised / CAMPAIGN.goal) * 100)));
-    const money = (n) => "$" + n.toLocaleString("en-US");
+    const barPercent = Math.max(0, Math.min(100, (CAMPAIGN.raised / CAMPAIGN.goal) * 100));
+    const money = (n) =>
+      "$" + n.toLocaleString("en-US", { minimumFractionDigits: Number.isInteger(n) ? 0 : 2 });
 
-    fill.style.setProperty("--progress", percent + "%");
+    fill.style.setProperty("--progress", barPercent + "%");
 
     const raisedEl = document.querySelector("[data-raised-text]");
     const goalEl = document.querySelector("[data-goal-text]");
