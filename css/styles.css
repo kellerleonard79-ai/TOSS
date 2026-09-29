@@ -447,13 +447,6 @@ ul {
     z-index: 1;
     margin-top: -20px;
   }
-
-  /* Nudge the about copy up clear of that overlapping band. A transform
-     (not margin) is used so it doesn't change the column's flow height,
-     which would otherwise shift the sticky video's release point too. */
-  .mission-box {
-    transform: translateY(-40px);
-  }
 }
 
 .hero-scrub__grid {
@@ -482,6 +475,9 @@ ul {
 @media (min-width: 901px) {
   .hero-scrub__left {
     padding-top: 0;
+    /* Matches the gap above the mission box, plus the 20px the next
+       section's band overlaps this one by. */
+    padding-bottom: calc(clamp(48px, 8vw, 96px) + 20px);
   }
 
   .hero-scrub__intro {
@@ -572,7 +568,7 @@ ul {
 
 .mission__head {
   max-width: 60ch;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .mission__stat {
