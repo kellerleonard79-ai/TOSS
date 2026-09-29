@@ -525,15 +525,20 @@ ul {
 }
 
 /* ==========================================================================
-   Home: section-by-section scrolling
-   Homepage (html.snap-sections), desktop pointers only; phones and tablets
-   keep free scrolling. The page stops at the top (the statement), again
-   with the mission box centered under the header, then at the green
-   section and the footer. snap-stop means a hard swipe can't skip a stop.
+   Section-by-section scrolling (Home and About)
+   Pages with html.snap-sections, desktop pointers only; phones and tablets
+   keep free scrolling. Home stops at the statement, the mission box
+   centered under the header, the green section and the footer; About stops
+   at each section and the footer. snap-stop means a hard swipe can't skip
+   a stop. Each plain section is sized to exactly one window with its
+   content centered under the header, so a stop shows one section and
+   nothing of its neighbors.
    ========================================================================== */
 @media (min-width: 901px) and (hover: hover) and (pointer: fine) {
   html.snap-sections {
     scroll-snap-type: y mandatory;
+    /* Space kept between a section's content and the header / window edge. */
+    --snap-breathe: clamp(24px, 6vh, 72px);
   }
   .snap-sections :is(.hero-scrub__intro, main > .section) {
     scroll-snap-align: start;
@@ -544,23 +549,30 @@ ul {
   .snap-sections .hero-scrub__intro { scroll-margin-top: var(--header-height); }
   /* Extending the box's snap area up by the header's height centers the
      box in the space below the header rather than in the whole window. */
-  .snap-sections .mission-box {
+  .snap-sections .hero-scrub .mission-box {
     scroll-snap-align: center;
     scroll-snap-stop: always;
     scroll-margin-top: var(--header-height);
   }
-  /* The green section fills the whole window at its stop, running up
-     behind the header so no video shows through there, and the footer
-     stays below. Extra top padding keeps its content centered in the space
-     under the header. */
-  .snap-sections main > .section--green {
-    scroll-snap-align: center;
+  /* Each section fills the whole window at its stop, running up behind the
+     header (so nothing above shows through it) with its content centered
+     in the space below the header. */
+  .snap-sections main > .section {
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
-    padding-top: calc(var(--section-space) + var(--header-height));
+    padding: calc(var(--header-height) + var(--snap-breathe)) 0 var(--snap-breathe);
   }
+  /* A page that opens on a plain section (About) starts below the header
+     in the flow, so that one fills the rest of the first window instead
+     and stops at the page top. */
+  .snap-sections main > .section:first-child {
+    min-height: calc(100vh - var(--header-height));
+    padding-top: var(--snap-breathe);
+    scroll-margin-top: var(--header-height);
+  }
+  .snap-sections main > .section--green { scroll-snap-align: center; }
   .snap-sections .site-footer { scroll-snap-align: end; }
 }
 
@@ -694,6 +706,11 @@ ul {
 .donate .lead {
   margin: 14px auto 0;
   color: var(--green);
+}
+
+.donate__contact {
+  margin-bottom: 16px;
+  color: var(--purple);
 }
 
 .donate__progress {
@@ -842,6 +859,20 @@ ul {
 
 /* The About box and partner band swap the homepage's colors: pastel green
    with green text for the story, lavender with purple text for the partner. */
+/* With section snapping on, the founders section has to fit one window, so
+   its sizes also scale with the window's height and give way on short
+   screens (they're unchanged from about 1080px tall up). */
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+  .snap-sections .about-title { font-size: clamp(2.25rem, min(5.5vw, 9vh), 4.5rem); }
+  .snap-sections .founders { margin-top: clamp(24px, 6vh, 64px); }
+  .snap-sections .founder { padding: clamp(20px, min(4vw, 4.5vh), 48px); }
+  .snap-sections .founder__photo {
+    width: clamp(96px, 18.5vh, 200px);
+    height: clamp(96px, 18.5vh, 200px);
+    margin-bottom: clamp(12px, 2.2vh, 24px);
+  }
+}
+
 .about-story {
   background: var(--green-pastel);
 }
