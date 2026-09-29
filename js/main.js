@@ -107,13 +107,31 @@
     // exactly when the reader can see the whole "about" block at once.
     const SCRUB_SPEED = 2;
 
+    // Distance scrolled (from the hero's top) at which the mission box is
+    // centered in the window, i.e. where the scroll sticks. 0 off desktop.
+    function desktopStickScroll() {
+      const box = heroLeft.querySelector(".mission-box");
+      if (!box || !window.matchMedia("(min-width: 901px)").matches) return 0;
+      const headerH = header ? header.offsetHeight : 0;
+      const target = headerH + (window.innerHeight - headerH) / 2;
+      const boxCenter = box.getBoundingClientRect().top + box.offsetHeight / 2;
+      return boxCenter - hero.getBoundingClientRect().top - target;
+    }
+
     function updateFrame() {
       ticking = false;
-      const scrollable = heroLeft.offsetHeight;
-      const rawProgress = scrollable > 0
-        ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / scrollable))
-        : 0;
-      const progress = Math.min(1, rawProgress * SCRUB_SPEED);
+      let progress;
+      const stickY = desktopStickScroll();
+      if (stickY > 0) {
+        // Desktop: land on the final frame exactly where the scroll sticks.
+        progress = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / stickY));
+      } else {
+        const scrollable = heroLeft.offsetHeight;
+        const rawProgress = scrollable > 0
+          ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / scrollable))
+          : 0;
+        progress = Math.min(1, rawProgress * SCRUB_SPEED);
+      }
       const index = Math.min(FRAME_COUNT - 1, Math.round(progress * (FRAME_COUNT - 1)));
       if (index !== currentFrame) {
         currentFrame = index;
@@ -128,7 +146,7 @@
       }
     }, { passive: true });
 
-    window.addEventListener("resize", () => draw(currentFrame));
+    window.addEventListener("resize", () => { draw(currentFrame); updateFrame(); });
 
     // Desktop: size the space under the mission box so that, with the next
     // section's band at the bottom of the window, the box sits the same
