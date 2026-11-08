@@ -1,16 +1,18 @@
 (function () {
   // ---- Donation progress -------------------------------------------------
-  // Update these two numbers as donations come in. Everything else
-  // (bar width, percentage, dollar labels) recalculates from them.
+  // The live numbers are set on the admin page (/admin/) and loaded from
+  // /api/campaign. These are only a fallback, shown if that can't be reached
+  // (e.g. when opening index.html straight from disk).
   const CAMPAIGN = {
     raised: 0.01,
     goal: 3000,
   };
 
   const fill = document.querySelector("[data-progress-fill]");
-  if (fill) {
-    const percent = Math.max(0, Math.min(100, Math.round((CAMPAIGN.raised / CAMPAIGN.goal) * 100)));
-    const barPercent = Math.max(0, Math.min(100, (CAMPAIGN.raised / CAMPAIGN.goal) * 100));
+
+  function renderCampaign({ raised, goal }) {
+    const percent = Math.max(0, Math.min(100, Math.round((raised / goal) * 100)));
+    const barPercent = Math.max(0, Math.min(100, (raised / goal) * 100));
     const money = (n) =>
       "$" + n.toLocaleString("en-US", { minimumFractionDigits: Number.isInteger(n) ? 0 : 2 });
 
@@ -19,9 +21,21 @@
     const raisedEl = document.querySelector("[data-raised-text]");
     const goalEl = document.querySelector("[data-goal-text]");
     const percentEl = document.querySelector("[data-percent-text]");
-    if (raisedEl) raisedEl.textContent = money(CAMPAIGN.raised);
-    if (goalEl) goalEl.textContent = money(CAMPAIGN.goal);
+    if (raisedEl) raisedEl.textContent = money(raised);
+    if (goalEl) goalEl.textContent = money(goal);
     if (percentEl) percentEl.textContent = percent + "%";
+  }
+
+  if (fill) {
+    renderCampaign(CAMPAIGN);
+    if (location.protocol.startsWith("http")) {
+      fetch("/api/campaign")
+        .then((res) => (res.ok ? res.json() : null))
+        .then((live) => {
+          if (live && live.goal > 0 && live.raised >= 0) renderCampaign(live);
+        })
+        .catch(() => { /* keep the fallback numbers */ });
+    }
   }
 
   const header = document.querySelector(".site-header");

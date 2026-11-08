@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — TOSS Inc.</title>
+  <link rel="icon" type="image/png" href="../2.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="admin">
+  <main class="admin__main">
+    <div class="admin-card">
+      <a class="admin-card__brand" href="../index.html" aria-label="Back to the TOSS Inc. home page">
+        <img src="../1.png" alt="TOSS Inc. logo" width="96">
+      </a>
+
+      <p class="admin-card__status" data-status hidden>Checking sign-in…</p>
+
+      <!-- Sign in -->
+      <form class="admin-form" data-login hidden>
+        <h1 class="h3">Admin sign in</h1>
+        <!-- Lets password managers save the login; the server ignores it. -->
+        <input type="text" name="username" value="admin" autocomplete="username" hidden>
+        <label class="admin-field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="current-password" required autofocus>
+        </label>
+        <p class="admin-msg" data-login-msg role="alert"></p>
+        <button class="btn btn--primary" type="submit">Sign in</button>
+      </form>
+
+      <!-- Edit -->
+      <form class="admin-form" data-editor hidden>
+        <h1 class="h3">Donation progress</h1>
+
+        <div class="admin-fields">
+          <label class="admin-field">
+            <span>Raised so far ($)</span>
+            <input type="number" name="raised" min="0" max="10000000" step="0.01" inputmode="decimal" required>
+          </label>
+          <label class="admin-field">
+            <span>Goal ($)</span>
+            <input type="number" name="goal" min="0.01" max="10000000" step="0.01" inputmode="decimal" required>
+          </label>
+        </div>
+
+        <div class="admin-preview" aria-label="Preview">
+          <p class="donate__amount"><span data-raised-text>$0</span> <span class="donate__of">raised of <span data-goal-text>$0</span></span></p>
+          <div class="progress-track">
+            <div class="progress-fill" data-progress-fill></div>
+          </div>
+          <p class="donate__percent"><span data-percent-text>0%</span> of the way to a fully funded parade season</p>
+        </div>
+
+        <p class="admin-msg" data-editor-msg role="status" aria-live="polite"></p>
+
+        <div class="admin-actions">
+          <button class="btn btn--primary" type="submit">Save</button>
+          <button class="btn btn--ghost" type="button" data-logout>Sign out</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>

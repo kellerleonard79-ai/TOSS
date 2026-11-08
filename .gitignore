@@ -1,3 +1,5 @@
 .playwright-mcp/
 4598C8BF-CF46-41CC-8785-73A074F97244.JPG
 .DS_Store
+.dev.vars
+.wrangler/

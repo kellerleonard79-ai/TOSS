@@ -15,16 +15,23 @@ images/mardi-gras/         Pensacola Mardi Gras photos (see credits below)
 
 ## Updating the donation progress bar
 
-Open `js/main.js` and edit the two numbers at the top of the file:
+Click **admin** at the very bottom of any page (or go to `/admin/`), enter the admin password, and change the "raised" and "goal" amounts. The home page picks up the new numbers within about a minute, with no code change or redeploy.
 
-```js
-const CAMPAIGN = {
-  raised: 2250,
-  goal: 3000,
-};
-```
+How it works:
 
-The bar width, percentage, and dollar labels on the home page all recalculate from these automatically — nothing else needs to change.
+- `admin/index.html` + `js/admin.js` — the sign-in and edit form.
+- `functions/api/[[path]].js` — a Cloudflare Pages Function. It checks the password, issues a signed 4-hour session cookie (HttpOnly, Secure, SameSite=Strict), validates the amounts, and stores them in Workers KV. Five wrong passwords from one IP lock that IP out for 15 minutes.
+- `js/main.js` loads the numbers from `/api/campaign`. The `CAMPAIGN` values at the top of that file are only a fallback for when the API can't be reached (e.g. opening `index.html` from disk).
+
+Setup, in the Cloudflare dashboard → Workers & Pages → `toss` → Settings:
+
+1. **Bindings → KV namespace**: variable name `CAMPAIGN_KV`, bound to a KV namespace (e.g. `toss-campaign`). Do this for Production (and Preview if you want the admin page on preview builds).
+2. **Variables and Secrets → Secret**: name `ADMIN_PASSWORD`, value = the admin password. Never put the password in this repo — it's public.
+3. Redeploy so the new settings take effect.
+
+To change the password, edit the `ADMIN_PASSWORD` secret and redeploy. Anyone signed in is signed out automatically.
+
+Local testing: put `ADMIN_PASSWORD="something"` in a `.dev.vars` file (git-ignored) and run `npx wrangler pages dev . --kv CAMPAIGN_KV`.
 
 ## Colors
 

@@ -1114,10 +1114,143 @@ ul {
   color: var(--ink-soft);
 }
 
+.footer__admin {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.footer__admin a {
+  color: var(--ink-soft);
+  opacity: 0.7;
+}
+
+.footer__admin a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
 @media (max-width: 767px) {
   .footer__inner {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+}
+
+/* ==========================================================================
+   Admin page (admin/index.html)
+   ========================================================================== */
+.admin {
+  background: var(--green-pastel);
+}
+
+.admin__main {
+  display: grid;
+  place-items: center;
+  padding: 48px var(--gutter);
+}
+
+.admin-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 36px;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(43, 34, 48, 0.08);
+}
+
+.admin-card__brand {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.admin-card__status {
+  color: var(--ink-soft);
+}
+
+.admin-form {
+  display: grid;
+  gap: 20px;
+}
+
+.admin-form[hidden] {
+  display: none;
+}
+
+.admin-form .h3 {
+  color: var(--purple);
+}
+
+.admin-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.admin-field {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--ink);
+  font: 400 16px var(--font-body);
+}
+
+.admin-field input:focus {
+  border-color: var(--purple);
+  outline: none;
+}
+
+.admin-preview {
+  padding: 20px 24px;
+  border-radius: var(--radius-sm);
+  background: var(--green-pastel);
+}
+
+.admin-preview .progress-track {
+  margin: 16px 16px 12px 0;
+}
+
+.admin-msg {
+  min-height: 1.4em;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.admin-msg:empty {
+  min-height: 0;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.admin-actions .btn--ghost:not(:hover) {
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+@media (max-width: 480px) {
+  .admin-card {
+    padding: 24px 20px;
+  }
+
+  .admin-fields {
+    grid-template-columns: 1fr;
   }
 }
 
